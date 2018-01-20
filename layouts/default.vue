@@ -88,12 +88,15 @@
         fixed: false,
         items: [
           { icon: 'apps', title: 'Welcome', to: '/' },
-          { icon: 'bubble_chart', title: 'Inspire', to: '/inspire' }
+          { icon: 'book', title: 'Comics', to: '/comics' },
+          { icon: 'autorenew', title: 'Random', to: '/comics/random' },
+          { icon: 'group', title: 'Groups', to: '/groups' },
+          { icon: 'forum', title: 'Forums', to: '/forums' }
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'Vuetify.js'
+        title: 'manga.sh'
       }
     }
   }
