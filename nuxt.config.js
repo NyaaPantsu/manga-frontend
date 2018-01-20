@@ -15,7 +15,12 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
     ]
   },
-  plugins: ['~/plugins/vuetify.js'],
+  plugins: [
+    '~/plugins/vuetify.js'
+  ],
+  modules: [
+    '@nuxtjs/axios'
+  ],
   css: [
     '~/assets/style/app.styl'
   ],
@@ -23,6 +28,16 @@ module.exports = {
   ** Customize the progress bar color
   */
   loading: { color: '#3B8070' },
+  /*
+  ** Axios configuration
+  */
+  axios: {
+    host: 'localhost',
+    port: 8080,
+    prefix: '/api/v1/',
+    baseURL: 'http://localhost:8080/api/v1/',
+    credentials: false
+  },
   /*
   ** Build configuration
   */
