@@ -35,10 +35,16 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar fixed app :clipped-left="clipped">
+
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-btn flat v-text="title" @click="drawer = !drawer" to="/"></v-btn>
+
       <v-spacer></v-spacer>
-      <v-menu offset-y>
+
+      <v-menu
+        v-if="user"
+        offset-y
+      >
         <v-btn
           icon
           fab
@@ -55,6 +61,8 @@
           </v-list-tile>
         </v-list>
       </v-menu>
+      <v-btn v-else flat darkclass="mr-3" to="/login">Login</v-btn>
+
     </v-toolbar>
     <v-content>
       <v-container>
@@ -81,6 +89,7 @@
           { icon: 'group', title: 'Groups', to: '/groups' },
           { icon: 'forum', title: 'Forums', to: '/forums' }
         ],
+        user: false,
         user_menu: [
           { title: 'Settings', to: '/' },
           { title: 'Logout', to: '/' }
