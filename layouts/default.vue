@@ -6,10 +6,10 @@
       v-model="drawer"
       fixed
       app
+      disable-route-watcher
     >
       <v-list>
         <v-list-tile
-          router
           :to="item.to"
           :key="i"
           v-for="(item, i) in items"
@@ -37,8 +37,9 @@
     <v-toolbar fixed app :clipped-left="clipped">
 
       <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
-      <v-btn flat v-text="title" @click="drawer = !drawer" to="/"></v-btn>
-
+      <v-toolbar-title>
+        <v-btn :ripple="false" flat v-text="title" to="/"></v-btn>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
 
       <v-menu
@@ -46,6 +47,7 @@
         offset-y
       >
         <v-btn
+          :ripple="false"
           icon
           fab
           primary
@@ -61,7 +63,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-btn v-else flat darkclass="mr-3" to="/login">Login</v-btn>
+      <v-btn :ripple="false" v-else flat to="/login">Login</v-btn>
 
     </v-toolbar>
     <v-content>
@@ -69,9 +71,6 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer :fixed="fixed" app>
-      <span>&copy; 2017</span>
-    </v-footer>
   </v-app>
 </template>
 
@@ -81,9 +80,8 @@
       return {
         clipped: true,
         drawer: false,
-        fixed: false,
         items: [
-          { icon: 'apps', title: 'Welcome', to: '/' },
+          { icon: 'home', title: 'Home', to: '/' },
           { icon: 'book', title: 'Comics', to: '/comics' },
           { icon: 'autorenew', title: 'Random', to: '/comics/random' },
           { icon: 'group', title: 'Groups', to: '/groups' },
