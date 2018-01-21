@@ -85,7 +85,9 @@
           { icon: 'book', title: 'Comics', to: '/comics' },
           { icon: 'autorenew', title: 'Random', to: '/comics/random' },
           { icon: 'group', title: 'Groups', to: '/groups' },
-          { icon: 'forum', title: 'Forums', to: '/forums' }
+          { icon: 'forum', title: 'Forums', to: '/forums' },
+          { icon: 'book', title: 'Login', to: '/login' },
+          { icon: 'book', title: 'Register', to: '/register' }
         ],
         user: false,
         user_menu: [
