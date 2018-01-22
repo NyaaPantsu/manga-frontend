@@ -17,7 +17,8 @@ module.exports = {
   plugins: [
     '~/plugins/vuetify.js',
     { src: '~/plugins/vue-gallery.js', ssr: false },
-    { src: '~/plugins/flag-icons.js', ssr: false }
+    { src: '~/plugins/flag-icons.js', ssr: false },
+    { src: '~/plugins/infinite-loading.js', ssr: false }
   ],
   modules: [
     '@nuxtjs/axios'
