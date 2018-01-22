@@ -35,3 +35,9 @@
     </v-flex>
   </v-layout>
 </template>
+<script>
+export default {
+  name: 'login'
+}
+</script>
+

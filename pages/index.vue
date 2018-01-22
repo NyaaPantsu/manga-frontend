@@ -1,12 +1,26 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <ul>
-        <li v-for="chapter in chapters">
-          {{ chapter.Id }}
-        </li>
-      </ul>
-    </v-flex>
+  <v-layout column>
+
+      <v-data-table
+      v-bind:headers="headers"
+      :items="chapters"
+      hide-actions
+      class="elevation-1"
+    >
+    <template slot="items" slot-scope="props">
+      <tr>
+        <td>
+          <router-link :to="{ name: 'comics-id', params: { id: props.item.SeriesId.Id }}">{{ props.item.SeriesId.Name }}</router-link>
+        </td>
+        <td>
+          
+          <router-link :to="{ name: 'reader-id', params: { id: props.item.Hash }}">Read</router-link>
+        </td>
+        <td>{{ props.item.ChapterLanguage.Code }}</td>
+      </tr>
+    </template>
+  </v-data-table>
+
   </v-layout>
 </template>
 
@@ -15,6 +29,20 @@
     name: 'ChaptersAll',
     data: () => {
       return {
+        headers: [
+          {
+            text: 'Series', value: 'series'
+          },
+          {
+            text: 'chapter', value: 'chapters'
+          },
+          {
+            text: 'Language', value: 'language'
+          },
+          {
+            text: 'Contributor', value: 'contributor'
+          }
+        ],
         chapters: [],
         limit: 25,
         offset: 0
