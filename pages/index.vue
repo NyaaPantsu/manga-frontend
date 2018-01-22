@@ -16,7 +16,7 @@
           
           <router-link :to="{ name: 'reader-id', params: { id: props.item.Hash }}">Read</router-link>
         </td>
-        <td>{{ props.item.ChapterLanguage.Code }}</td>
+        <td><flag :iso="props.item.ChapterLanguage.Code" /></td>
       </tr>
     </template>
   </v-data-table>

@@ -2523,7 +2523,7 @@ find-up@^2.0.0, find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
-flag-icon-css@^2.8.0, flag-icon-css@^2.9.0:
+flag-icon-css@^2.8.0:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/flag-icon-css/-/flag-icon-css-2.9.0.tgz#5793c15244e3c63ae36631478a758a3fc29c86be"
 
@@ -6311,6 +6311,10 @@ vue-gallery@^1.2.5:
 vue-hot-reload-api@^2.2.0:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/vue-hot-reload-api/-/vue-hot-reload-api-2.2.4.tgz#683bd1d026c0d3b3c937d5875679e9a87ec6cd8f"
+
+vue-infinite-loading@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/vue-infinite-loading/-/vue-infinite-loading-2.2.3.tgz#6912fcbe3fd44b97a555ab0b5a78b6100bd056c5"
 
 vue-loader@^13.6.2:
   version "13.7.0"
