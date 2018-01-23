@@ -1,34 +1,63 @@
 <template>
-  <v-layout column justify-center align-center>
+<v-layout>
+  <v-alert color="info" icon="info" dismissible v-model="alert">
+    Successfully logged in!
+  </v-alert>
+  <v-flex xs12 sm6 offset-sm3>
+    <v-card>
+      <v-card-title>
+        <h5>Login</h5>
+      </v-card-title>
+    <v-card-text>
+      <v-form>
+        <v-text-field
+          label="Username"
+          v-model="username"
+          required
+          ></v-text-field>
+        <v-text-field
+          name="Password"
+          label="Enter your password"
+          hint="At least 8 characters"
+          v-model="password"
+          min="8"
+          :append-icon="e1 ? 'visibility' : 'visibility_off'"
+          :append-icon-cb="() => (e1 = !e1)"
+          :type="e1 ? 'password' : 'text'"
+          counter
+          ></v-text-field>
+          <v-btn @click="submit">
+            submit
+          </v-btn>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-flex>
+</v-layout>
   
-  
-    <v-form ref="form">
-      <v-text-field label="UserName" v-model="username" required></v-text-field>
-      <v-text-field label="Password" v-model="password" :type="'password'" required></v-text-field>
-  
-      <v-btn @click="submit">
-        submit
-      </v-btn>
-    </v-form>
-  
-  
-  </v-layout>
 </template>
 <script>
+
 export default {
   name: 'login',
   data: function () {
     return {
       username: '',
-      password: ''
+      password: '',
+      e1: true,
+      alert: false
     }
   },
   methods: {
     submit: function (e) {
-      console.log(JSON.stringify({username: this.username, password: this.password}))
       this.$axios.$post('/auth/login', JSON.stringify({username: this.username, password: this.password}))
-        .then(function (response) {
-
+        .then((response) => {
+          var data = JSON.parse(response)
+          this.$store.commit('username', data.username)
+          this.$store.commit('token', data.token)
+          this.$store.commit('user')
+          this.alert = true
+          this.$root.user = true
         })
     }
   }

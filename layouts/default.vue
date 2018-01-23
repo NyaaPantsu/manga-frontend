@@ -9,6 +9,9 @@
       disable-route-watcher
     >
       <v-list>
+        <div>
+
+        </div>
         <v-list-tile
           :to="item.to"
           :key="i"
@@ -41,7 +44,11 @@
         <v-btn :ripple="false" flat v-text="title" to="/"></v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-
+        <v-text-field
+         solo
+         prepend-icon="search"
+         placeholder="Type keyword...">
+      </v-text-field>
       <v-menu
         v-if="user"
         offset-y
@@ -64,6 +71,7 @@
         </v-list>
       </v-menu>
       <v-btn :ripple="false" v-else flat to="/login">Login</v-btn>
+
 
     </v-toolbar>
     <v-content>
