@@ -35,6 +35,7 @@ const store = () => {
             if (typeof state[atype][alertIndex] === 'string') {
               alerts.push({
                 text: state[atype][alertIndex],
+                remainingCount: 1,
                 type: atype
               })
             } else if (typeof state[atype][alertIndex] === 'object') {
