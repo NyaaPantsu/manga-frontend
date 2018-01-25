@@ -1,23 +1,14 @@
 <template>
-<v-layout>
-  <v-alert color="info" icon="info" dismissible v-model="alert">
-    Successfuly registered!
-  </v-alert>
   <v-flex xs12 sm6 offset-sm3>
     <v-card>
       <v-card-title>
-        <h5>Register</h5>
+        <h5>Login</h5>
       </v-card-title>
     <v-card-text>
       <v-form>
         <v-text-field
           label="Username"
           v-model="username"
-          required
-          ></v-text-field>
-        <v-text-field
-          label="Email"
-          v-model="email"
           required
           ></v-text-field>
         <v-text-field
@@ -38,29 +29,28 @@
       </v-card-text>
     </v-card>
   </v-flex>
-</v-layout>
-  
+    
 </template>
 <script>
-
 export default {
-  name: 'login',
   data: function () {
     return {
       username: '',
       password: '',
-      email: '',
       e1: true,
       alert: false
     }
   },
   methods: {
     submit: function (e) {
-      this.$axios.$post('/auth/register', JSON.stringify({username: this.username, email: this.email, password: this.password}))
+      this.$axios.$post('/auth/login', JSON.stringify({username: this.username, password: this.password}))
         .then((response) => {
-          var data = JSON.parse(response)
-          if (data.success !== true) {
-          }
+          var data = response['response'][0]
+          this.$store.commit('username', data.username)
+          this.$store.commit('token', data.token)
+          this.$store.commit('user', true)
+          this.alert = true
+          this.$router.push('/')
         })
     }
   }

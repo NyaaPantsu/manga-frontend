@@ -14,9 +14,11 @@
     "@nuxtjs/axios": "^4.5.2",
     "nuxt": "^1.0.0",
     "pug": "^2.0.0-rc.4",
+    "timeago-vue": "0.0.1",
     "vue-flag-icon": "^1.0.6",
     "vue-gallery": "^1.2.5",
     "vue-infinite-loading": "^2.2.3",
+    "vue-timeago": "^3.4.2",
     "vuetify": "^0.17.4"
   },
   "devDependencies": {

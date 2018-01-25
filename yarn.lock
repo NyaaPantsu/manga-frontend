@@ -5980,11 +5980,25 @@ through@^2.3.6:
   version "2.3.8"
   resolved "https://registry.yarnpkg.com/through/-/through-2.3.8.tgz#0dd4c9ffaabc357960b1b724115d7e0e86a2e1f5"
 
+timeago-vue@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/timeago-vue/-/timeago-vue-0.0.1.tgz#917ff4da9289bbe87cadd9dc71e477ac124a768e"
+  dependencies:
+    timeago.js "^2.0.4"
+
+timeago.js@^2.0.4:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/timeago.js/-/timeago.js-2.0.5.tgz#730c74fbdb0b0917a553675a4460e3a7f80db86c"
+
 timers-browserify@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/timers-browserify/-/timers-browserify-2.0.4.tgz#96ca53f4b794a5e7c0e1bd7cc88a372298fa01e6"
   dependencies:
     setimmediate "^1.0.4"
+
+tiny-cookie@^1.0:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tiny-cookie/-/tiny-cookie-1.0.1.tgz#753786079c642a3c3d0b2accad600f8de119ac2a"
 
 tmp@^0.0.33:
   version "0.0.33"
@@ -6296,6 +6310,12 @@ void-elements@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-2.0.1.tgz#c066afb582bb1cb4128d60ea92392e94d5e9dbec"
 
+vue-cookie@^1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/vue-cookie/-/vue-cookie-1.1.4.tgz#b8b46d112bda9f93a2f47017c2ed5282d2064fda"
+  dependencies:
+    tiny-cookie "^1.0"
+
 vue-flag-icon@^1.0.6:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/vue-flag-icon/-/vue-flag-icon-1.0.6.tgz#0304fdfeebd982a6bf985c633c346ff3c6d2f9d7"
@@ -6376,6 +6396,10 @@ vue-template-compiler@^2.5.13:
 vue-template-es2015-compiler@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.6.0.tgz#dc42697133302ce3017524356a6c61b7b69b4a18"
+
+vue-timeago@^3.4.2:
+  version "3.4.2"
+  resolved "https://registry.yarnpkg.com/vue-timeago/-/vue-timeago-3.4.2.tgz#291c99370975b0a6f7b65f8745fba878fb545fd8"
 
 vue@^2.5.13:
   version "2.5.13"
