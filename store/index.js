@@ -22,8 +22,13 @@ const store = () => {
       token (state, token) {
         state.token = token
       },
-      user (state) {
-        state.user = !state.user
+      user (state, user) {
+        state.user = user
+      }
+    },
+    actions: {
+      async nuxtServerInit ({ commit }, { req }) {
+        console.log('server init')
       }
     }
   })
