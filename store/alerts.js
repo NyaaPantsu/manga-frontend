@@ -32,10 +32,19 @@ const store = () => {
         let alerts = []
         for (let atype of ['success', 'warn', 'info', 'error']) {
           for (let alertIndex in state[atype]) {
-            alerts.push({
-              ...state[atype][alertIndex],
-              type: atype
-            })
+            if (typeof state[atype][alertIndex] === 'string') {
+              alerts.push({
+                text: state[atype][alertIndex],
+                type: atype
+              })
+            } else if (typeof state[atype][alertIndex] === 'object') {
+              alerts.push({
+                ...state[atype][alertIndex],
+                type: atype
+              })
+            } else {
+              // error state
+            }
             store.commit('consumeAlert', {atype, alertIndex})
           }
         }
