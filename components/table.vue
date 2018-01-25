@@ -160,9 +160,12 @@
     },
 
     async mounted () {
-      const chapters = await this.$axios.$get('/series_chapters/' +this.route.params.id + '?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset).catch(error => {
+      let chapters
+      try {
+        chapters = await this.$axios.$get('/series_chapters/' + this.route.params.id + '?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
+      } catch (err) {
         chapters = this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
-      })
+      }
       this.chapters = chapters.response
       this.count = chapters.count
       this.page = this.offset
