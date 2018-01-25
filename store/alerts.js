@@ -30,12 +30,13 @@ const store = () => {
     actions: {
       getAlerts (state) {
         let alerts = []
-        for (let atype in ['success', 'warn', 'info', 'error']) {
-          for (let alert in state[atype]) {
+        for (let atype of ['success', 'warn', 'info', 'error']) {
+          for (let alertIndex in state[atype]) {
             alerts.push({
-              ...alert,
+              ...state[atype][alertIndex],
               type: atype
             })
+            store.commit('consumeAlert', {atype, alertIndex})
           }
         }
       }
