@@ -19,7 +19,6 @@ module.exports = {
     '~/plugins/vuetify.js',
     { src: '~/plugins/vue-gallery.js', ssr: false },
     { src: '~/plugins/vue-timeago.js', ssr: false },
-    { src: '~/plugins/vue-cookie.js', ssr: false },
     { src: '~/plugins/flag-icons.js', ssr: false },
     { src: '~/plugins/infinite-loading.js', ssr: false }
   ],
