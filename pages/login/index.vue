@@ -1,10 +1,13 @@
 <template>
-<v-layout>
-  <app-header />
-  <login-form/>
+<div>
+  <div>
+    <app-header />
+  </div>
+  <div>
+    <login-form/>
+  </div>
+</div>
 
-</v-layout>
-  
 </template>
 <script>
 import AppHeader from '~/components/header'
