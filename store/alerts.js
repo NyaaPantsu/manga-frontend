@@ -19,18 +19,18 @@ const store = () => {
         state[atype] = []
       },
       consumeAlert (state, {atype, alertIndex}) {
-        if (state[atype][alertIndex].remainingCount !]= -1) {
+        if (state[atype][alertIndex].remainingCount !== -1) {
           state[atype][alertIndex].remainingCount -= 1
-          if (state[atype][alertIndex].remainingCount =]= 0) {
+          if (state[atype][alertIndex].remainingCount === 0) {
             store.commit('removeAlert', {atype, alertIndex})
           }
         }
       }
-    }, 
+    },
     actions: {
       getAlerts (state) {
         let alerts = []
-        for (let atype in ['success','warn','info','error']) {
+        for (let atype in ['success', 'warn', 'info', 'error']) {
           for (let alert in state[atype]) {
             alerts.push({
               ...alert,
