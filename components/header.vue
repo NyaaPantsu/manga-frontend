@@ -27,8 +27,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <v-list-tile
-          @click.stop="miniVariant = !miniVariant"
-        >
+          @click.stop="miniVariant = !miniVariant">
           <v-list-tile-action>
             <v-icon v-html="miniVariant ? 'chevron_right' : 'first_page'"></v-icon>
           </v-list-tile-action>
@@ -45,11 +44,22 @@
         <v-btn :ripple="false" flat v-text="title" to="/"></v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-text-field
+      <v-btn icon @click="toggleExtension">
+        <v-icon>search</v-icon>
+      </v-btn>
+      <v-toolbar-title v-if="this.$store.state.extended" slot="extension" row>
+        <v-toolbar-items>
+
+        <v-switch v-model="nsfw" v-bind:label="`NSFW`" dark></v-switch>
+        </v-toolbar-items>
+      <v-spacer></v-spacer>
+ <v-text-field
          solo
          prepend-icon="search"
          placeholder="Type keyword...">
       </v-text-field>
+      </v-toolbar-title>
+       
       <v-menu
         v-if="this.$store.state.user"
         offset-y
@@ -113,6 +123,7 @@
           { icon: 'forum', title: 'Add Groups', to: '/groups/add' }
         ],
         user: false,
+        nsfw: false,
         user_menu: [
           { title: 'Settings', to: '/user/settings' },
           { title: 'Follows', to: '/user/follows' },
@@ -120,7 +131,18 @@
           { title: 'Logout', to: '/user/logout' }
         ],
         miniVariant: false,
-        title: 'manga.sh'
+        title: 'manga.sh',
+        extended: false
+      }
+    },
+    methods: {
+      toggleExtension: function (event) {
+        this.extended = !this.extended
+        this.$store.commit('extended', this.extended)
+      },
+      toggleNSFW: function (event) {
+        this.nfsw = !this.nsfw
+        this.$store.commit('nfsw')
       }
     }
   }

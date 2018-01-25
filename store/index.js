@@ -6,6 +6,7 @@ const store = () => {
       sidebar: false,
       nsfw: false,
       user: false,
+      extended: false,
       username: null,
       token: null
     },
@@ -24,6 +25,9 @@ const store = () => {
       },
       user (state, user) {
         state.user = user
+      },
+      extended (state, extended) {
+        state.extended = extended
       }
     },
     actions: {
