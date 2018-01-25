@@ -48,7 +48,6 @@
         <v-text-field
          solo
          prepend-icon="search"
-         v-model="search"
          placeholder="Type keyword...">
       </v-text-field>
       <v-menu
@@ -122,10 +121,6 @@
         ],
         miniVariant: false,
         title: 'manga.sh'
-      }
-    },
-    watch: {
-      search: function () {
       }
     }
   }
