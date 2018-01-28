@@ -39,7 +39,7 @@
       </v-layout>
       </v-card-text>
       <v-card-actions>
-          <v-btn fab dark small color="pink"><v-icon dark>favorite</v-icon></v-btn>
+          <v-btn fab dark small color="pink" @click="follow"><v-icon dark>favorite</v-icon></v-btn>
           <v-btn fab dark small color="indigo"><v-icon dark>star</v-icon></v-btn>
           <v-btn fab dark small color="indigo"><v-icon dark>pen</v-icon></v-btn>
           <v-btn fab dark small color="indigo"><v-icon dark>star</v-icon></v-btn>
@@ -63,8 +63,16 @@ export default {
       required: true
     }
   },
-  async mounted () {
-    console.log(this.series)
+  methods: {
+    follow: function (event) {
+      var header = 'Bearer ' + this.$store.state.token
+      this.$axios.$get('/follow/' + this.series.Id, { headers: { Authorization: header }
+      }).then((response) => {
+        console.log(response)
+      })
+    },
+    rate: function (event) {
+    }
   }
 }
 </script>

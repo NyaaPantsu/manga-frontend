@@ -56,6 +56,7 @@ export default {
           var data = JSON.parse(response)
           if (data.success !== true) {
           }
+          this.$router.push('/login')
         })
     }
   }
