@@ -10,10 +10,9 @@
               dark
               cache-items
               required
-                            :search-input.sync="search"
-
+                :search-input.sync="search"
           autocomplete
-          :items="this.items"
+          :items="items"
         ></v-select>
           <v-text-field v-model="title" label="Title"></v-text-field>
         
@@ -98,9 +97,10 @@ export default {
       this.loading = true
       // Simulated ajax query
       setTimeout(() => {
-        const series = this.$axios.$get('/series?query=Name__icontains:' + v)
-        this.items = series['response'].map(function (item) { return item.Name })
-        this.loading = false
+        this.$axios.$get('/series?query=Name__icontains:' + v).then((response) => {
+          this.items = response['response'].map(function (item) { return item.Name })
+          this.loading = false
+        })
       }, 500)
     }
   }

@@ -47,17 +47,31 @@
       <v-btn icon @click="toggleExtension">
         <v-icon>search</v-icon>
       </v-btn>
-      <v-toolbar-title v-if="this.$store.state.extended" slot="extension" row>
-        <v-toolbar-items>
+      <v-toolbar-title v-if="this.$store.state.extended" slot="extension">
+        <v-toolbar-items row>
+          <v-flex xs5>
+            <v-switch v-model="nsfw" v-bind:label="`NSFW`" dark></v-switch>
+          </v-flex>
+          <v-flex xs7>
 
-        <v-switch v-model="nsfw" v-bind:label="`NSFW`" dark></v-switch>
-        </v-toolbar-items>
+                     <v-select
+          v-model="name"
+            :loading="loading"
+            :append-icon-cb="redirect"
+              dark
+              cache-items
+                            :search-input.sync="search"
+
+          autocomplete
+         append-icon="search"
+          :items="this.series"
+        ></v-select>
+
+          </v-flex>
+
+
       <v-spacer></v-spacer>
- <v-text-field
-         solo
-         prepend-icon="search"
-         placeholder="Type keyword...">
-      </v-text-field>
+        </v-toolbar-items>
       </v-toolbar-title>
        
       <v-menu
@@ -112,6 +126,10 @@
       return {
         clipped: true,
         drawer: false,
+        name: '',
+        series: [],
+        loading: false,
+        search: null,
         items: [
           { icon: 'home', title: 'Home', to: '/' },
           { icon: 'book', title: 'Comics', to: '/comics' },
@@ -135,7 +153,18 @@
         extended: false
       }
     },
+    watch: {
+      search (val) {
+        val && this.querySelections(val)
+      }
+    },
     methods: {
+      redirect: function (label) {
+        this.$axios.$get('/series?query=Name:' + this.name).then((response) => {
+          var seriesid = response['response'][0].Id
+          this.$router.push({ name: 'comics-id', params: { id: seriesid } })
+        })
+      },
       toggleExtension: function (event) {
         this.extended = !this.extended
         this.$store.commit('extended', this.extended)
@@ -143,6 +172,16 @@
       toggleNSFW: function (event) {
         this.nfsw = !this.nsfw
         this.$store.commit('nfsw')
+      },
+      querySelections (v) {
+        this.loading = true
+        // Simulated ajax query
+        setTimeout(() => {
+          this.$axios.$get('/series?query=Name__icontains:' + v).then((response) => {
+            this.series = response['response'].map(function (item) { return item.Name })
+            this.loading = false
+          })
+        }, 500)
       }
     }
   }
