@@ -44,16 +44,8 @@
         <v-btn :ripple="false" flat v-text="title" to="/"></v-btn>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon @click="toggleExtension">
-        <v-icon>search</v-icon>
-      </v-btn>
-      <v-toolbar-title v-if="this.$store.state.extended" slot="extension">
-        <v-toolbar-items row>
-          <v-flex xs5>
-            <v-switch v-model="nsfw" v-bind:label="`NSFW`" dark></v-switch>
-          </v-flex>
-          <v-flex xs7>
-
+      <v-spacer></v-spacer>
+      <v-switch v-model="nsfw" label="nsfw" dark></v-switch>
                      <v-select
           v-model="name"
             :loading="loading"
@@ -70,8 +62,6 @@
           </v-flex>
 
 
-      <v-spacer></v-spacer>
-        </v-toolbar-items>
       </v-toolbar-title>
        
       <v-menu
