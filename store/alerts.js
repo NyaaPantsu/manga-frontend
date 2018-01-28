@@ -19,8 +19,14 @@ const store = () => {
         state[atype] = []
       },
       consumeAlert (state, {atype, alertIndex}) {
+        // error handling -- non-number type is error state
+        if (typeof state[atype][alertIndex].remainingCount !== 'number') {
+          store.commit('removeAlert', {atype, alertIndex})
+        }
+        // if not persistent alert
         if (state[atype][alertIndex].remainingCount !== -1) {
           state[atype][alertIndex].remainingCount -= 1
+          // if no remainingCount left, remove
           if (state[atype][alertIndex].remainingCount === 0) {
             store.commit('removeAlert', {atype, alertIndex})
           }
@@ -32,10 +38,20 @@ const store = () => {
         let alerts = []
         for (let atype of ['success', 'warn', 'info', 'error']) {
           for (let alertIndex in state[atype]) {
-            alerts.push({
-              ...state[atype][alertIndex],
-              type: atype
-            })
+            if (typeof state[atype][alertIndex] === 'string') {
+              alerts.push({
+                text: state[atype][alertIndex],
+                remainingCount: 1,
+                type: atype
+              })
+            } else if (typeof state[atype][alertIndex] === 'object') {
+              alerts.push({
+                ...state[atype][alertIndex],
+                type: atype
+              })
+            } else {
+              // error state
+            }
             store.commit('consumeAlert', {atype, alertIndex})
           }
         }
