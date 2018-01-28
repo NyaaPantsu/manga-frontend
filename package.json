@@ -18,6 +18,7 @@
     "vue-flag-icon": "^1.0.6",
     "vue-gallery": "^1.2.5",
     "vue-infinite-loading": "^2.2.3",
+    "vue-simplemde": "^0.4.6",
     "vue-timeago": "^3.4.2",
     "vuetify": "^0.17.4"
   },

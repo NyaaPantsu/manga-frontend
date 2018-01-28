@@ -119,7 +119,7 @@
           { icon: 'group', title: 'Groups', to: '/groups' },
           { icon: 'forum', title: 'Forums', to: '/forums' },
           { icon: 'forum', title: 'Add Series', to: '/comics/add' },
-          { icon: 'forum', title: 'Add Chapter', to: '/comics/add' },
+          { icon: 'forum', title: 'Add Chapter', to: '/comics/upload' },
           { icon: 'forum', title: 'Add Groups', to: '/groups/add' }
         ],
         user: false,

@@ -1,58 +1,69 @@
 <template>
 <div>
+         <v-card color="secondary" flat>
+    <v-card-text>
        <v-layout row class="px-2">
-        <v-flex xs7>
-          <img src="/information.png"/>
+
+        <v-flex xs3>
+          <img :src="cdn + this.series.CoverImage + thumb"/>
         </v-flex>
         <v-flex xs12>
-          <v-layout class="pa-1">
-            <v-flex xs8 sm6>
-              <img style="float: left; padding: 3px 4px;" src="/book_open.png" />
+          <v-layout column class="pa-1">
+            <v-flex>
+              <v-card-title primary-title>
+                <div>
+                  <h3 class="headline mb-0">{{ this.series.Name }}</h3>
+                  <v-chip color="primary" text-color="white" v-for="alias in series.SeriesAliases">{{ alias.Name }}</v-chip>
+                </div>
+              </v-card-title>
             </v-flex>
-            <v-flex xs4 hidden-xs-only>
-              test
+            <v-flex v-html="series.Description">
             </v-flex>
-            <v-flex xs4 sm2>
+            <v-flex>
+                <v-chip color="primary" text-color="white" v-for="tag in series.SeriesTags">{{ tag.TagNamespace }}:{{ tag.TagName }}</v-chip>
             </v-flex>
-            <v-flex xs4 sm2>
+            <v-flex>
+              {{ this.series.SeriesRatings }}
             </v-flex>
+            <v-flex>
+              <v-chip>{{ this.series.TypeName }}</v-chip>
+              <v-chip>
+               {{ this.series.TypeDemonym }}
+              </v-chip>
+            </v-flex>
+            <v-flex>
+            </v-flex> 
           </v-layout>
         </v-flex>
+
       </v-layout>
-  
+      </v-card-text>
+      <v-card-actions>
+          <v-btn fab dark small color="pink"><v-icon dark>favorite</v-icon></v-btn>
+          <v-btn fab dark small color="indigo"><v-icon dark>star</v-icon></v-btn>
+          <v-btn fab dark small color="indigo"><v-icon dark>pen</v-icon></v-btn>
+          <v-btn fab dark small color="indigo"><v-icon dark>star</v-icon></v-btn>
+        </v-card-actions>
+      
+         </v-card>
 </div>
- 
-  
 </template>
 <script>
 export default {
   name: 'ComicsOne',
-  data () {
+  data: () => {
     return {
-      headers: [
-        {
-          text: 'Dessert (100g serving)',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
-        { text: 'Sodium (mg)', value: 'sodium' },
-        { text: 'Calcium (%)', value: 'calcium' },
-        { text: 'Iron (%)', value: 'iron' }
-      ],
-      items: []
+      cdn: 'http://api.manga.sh:8080/uploads/covers/',
+      thumb: '_thumb'
+    }
+  },
+  props: {
+    series: {
+      type: Array,
+      required: true
     }
   },
   async mounted () {
-    var id = this.$route.params.id
-    const chapters = await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + id + '&limit=' + this.limit + '&offset=' + this.offset)
-    this.items = chapters['response']
-    this.series = this.items['SeriesId']
-    console.log(chapters)
     console.log(this.series)
   }
 }
