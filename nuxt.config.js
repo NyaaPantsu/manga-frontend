@@ -14,7 +14,6 @@ module.exports = {
           { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
       ]
   },
-  ssr: false,
   plugins: [
     '~/plugins/vuetify.js',
     { src: '~/plugins/vue-gallery.js', ssr: false },

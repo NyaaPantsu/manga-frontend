@@ -4,10 +4,10 @@
     <app-header />
   </div>
   <div>
-    <Comics/>  
+    <Comics :series="this.series"/>  
   </div>
   <div>
-    <Table/>
+    <Table :chapters="this.chapters" :count="this.count" :page="this.page"/>
   </div>
 </div>
 </template>
@@ -21,6 +21,30 @@ export default {
     AppHeader,
     Comics,
     Table
+  },
+  data: () => {
+    return {
+      chapters: [],
+      limit: 25,
+      offset: 0,
+      order: 'desc',
+      sortby: 'TimeUploaded',
+      page: 0,
+      id: null,
+      series: [],
+      count: 0
+    }
+  },
+  async mounted () {
+    var id = this.$route.params.id
+    const series = await this.$axios.$get('/series?query=Id:' + id)
+    const response = await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + id + '&limit=' + this.limit + '&offset=' + this.offset)
+    var chapters = response['response']
+    if (response['count'] === 0) {
+      chapters = []
+    }
+    this.chapters = chapters
+    this.series = series['response'][0]
   }
 }
 </script>

@@ -56,19 +56,9 @@
 <script>
 
 export default {
-  data: function () {
+  data: () => {
     return {
-      items: [],
-      images: [],
-      offset: 0,
-      limit: 1,
-      index: null,
-      count: 0,
-      hash: ' ',
-      series: [],
-      pages: [],
-      chapters: [],
-      id: 0
+      index: null
     }
   },
   methods: {
@@ -79,22 +69,19 @@ export default {
 
     }
   },
-
-  async mounted () {
-    var hash = this.$route.params.id
-    this.hash = hash
-
-    const data = await this.$axios.$get('/series_chapters/' + hash)
-    this.series = data['response'][0]
-    var array = Object.values(this.series.SeriesChaptersFiles)
-    this.pages = array
-    for (var index = 0; index < array.length; index++) {
-      this.images.push('http://api.manga.sh:8080/' + array[index].Name)
+  props: {
+    series: {
+      type: Array,
+      required: true
+    },
+    images: {
+      type: Array,
+      required: true
+    },
+    items: {
+      type: Array,
+      required: true
     }
-    this.count = data.count
-    this.id = this.series['SeriesId'].Id
-    const chapters = await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.id + ',ChapterLanguage.Name:' + this.series.ChapterLanguage.Name + '&orderby=TimeUploaded')
-    this.items = chapters['response']
   }
 }
 </script>

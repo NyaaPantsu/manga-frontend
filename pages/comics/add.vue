@@ -1,43 +1,39 @@
 <template>
-  <v-form v-model="valid" ref="form" >
-    <v-text-field
-      label="Name"
-      v-model="name"
-      :counter="10"
-      required
-    ></v-text-field>
-    <v-text-field
-      label="E-mail"
-      v-model="email"
-      :rules="emailRules"
-      required
-    ></v-text-field>
-    <v-select
-      label="Item"
-      v-model="select"
-      required
-    ></v-select>
-    <v-btn
-      @click="submit"
-      :disabled="!valid"
-    >
-      submit
-    </v-btn>
-    <v-btn @click="clear">clear</v-btn>
-  </v-form>
+  <div>
+    <div>
+      <app-header/>
+    </div>
+    <div>
+      <comics :proptags="this.tags" :propartists="this.artists" :propauthors="this.authors"/>
+    </div>
+  </div>
 </template>
 <script>
+import AppHeader from '~/components/header'
+import Comics from '~/components/comics-add'
 export default {
-  name: 'AddSeries',
+  name: 'comics-add',
+  components: {
+    AppHeader,
+    Comics
+  },
   data: function () {
     return {
-      success: false
+      success: false,
+      tags: [],
+      artists: [],
+      authors: []
     }
   },
-  methods: {
-    submit: function (e) {
-      this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
-    }
+  async mounted () {
+    const tags = await this.$axios.$get('/tags')
+    const authors = await this.$axios.$get('/tags?query=NameSpace:author')
+    const artists = await this.$axios.$get('/tags?query=NameSpace:artist')
+    console.log(tags)
+    this.tags = tags['response'].map(function (item) { return item.Name })
+    this.artists = artists['response'].map(function (item) { return item.Name })
+    this.authors = authors['response'].map(function (item) { return item.Name })
   }
+
 }
 </script>

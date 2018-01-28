@@ -1,23 +1,30 @@
 <template lang="pug">
-  v-layout(row)
-    v-flex(xs12 sm8 offset-sm2)
-      v-card
-        v-list(three-line)
-          template(v-for="group in groups")
-            // v-subheader ...
-            // v-divider ...
-            v-list-tile(avatar :key="group.Name")
-              v-list-tile-avatar
-                //img(:src="group.Avatar")
-                img(src="http://via.placeholder.com/16x16")
-              v-list-tile-content
-                v-list-tile-title(v-text="group.Name")
-                v-list-tile-sub-title(v-html="group.Description")
+  div
+    div
+      app-header
+    div
+      v-layout(row)
+        v-flex(xs12 sm8 offset-sm2)
+          v-card
+            v-list(three-line)
+              template(v-for="group in groups")
+                // v-subheader ...
+                // v-divider ...
+                v-list-tile(avatar :key="group.Name")
+                  v-list-tile-avatar
+                    //img(:src="group.Avatar")
+                    img(src="http://via.placeholder.com/16x16")
+                  v-list-tile-content
+                    v-list-tile-title(v-text="group.Name")
+                    v-list-tile-sub-title(v-html="group.Description")
 </template>
-
 <script>
+import AppHeader from '~/components/header'
 export default {
   name: 'GroupsAll',
+  components: {
+    AppHeader
+  },
   data: () => {
     return {
       groups: [],
@@ -25,7 +32,6 @@ export default {
       offset: 0
     }
   },
-
   async mounted () {
     const groups = await this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + this.offset)
     this.groups = groups

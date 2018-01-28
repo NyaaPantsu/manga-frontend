@@ -18,16 +18,16 @@
       <v-layout class="pa-1">
         <v-flex style="flex: 0 0 50px">
         </v-flex>
-        <v-flex xs8 sm6 class="px-2" id="title" @click="search">
+        <v-flex xs8 sm6 class="px-2" id="title">
           Title
         </v-flex>
         <v-flex xs4 hidden-xs-only>
           Group
         </v-flex>
-        <v-flex xs4 sm2 id="title" @click="search">
+        <v-flex xs4 sm2 id="title">
           Language
         </v-flex>
-        <v-flex xs4 sm2 id="title" @click="search">
+        <v-flex xs4 sm2 id="title">
           Date
         </v-flex>
       </v-layout>
@@ -70,61 +70,10 @@
         </v-flex>
       </v-layout>
     </v-flex>
-    <v-flex hidden-sm-and-down md3 class="pl-3">
-        <v-subheader>Popular Series</v-subheader>
-        <v-card color="blue-grey darken-3" class="white--text mb-3">
-          <v-container fluid grid-list-lg>
-            <v-layout row>
-              <v-flex style="flex: 0 0 50px">
-                <img src="/placeholder.jpg" />
-              </v-flex>
-              <v-flex xs11>
-                <div>
-                  <div>Ch.722: The Old You</div>
-                  <div>Tomo-chan wa Onna no ko!</div>
-                  <div>Dec 17</div>
-                </div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-        <v-card color="blue-grey darken-3" class="white--text mb-3">
-          <v-container fluid grid-list-lg>
-            <v-layout row>
-              <v-flex style="flex: 0 0 50px">
-                <img src="/placeholder.jpg" />
-              </v-flex>
-              <v-flex xs11>
-                <div>
-                  <div>Ch.722: The Old You</div>
-                  <div>Tomo-chan wa Onna no ko!</div>
-                  <div>Dec 17</div>
-                </div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-        <v-card color="blue-grey darken-3" class="white--text mb-3">
-          <v-container fluid grid-list-lg>
-            <v-layout row>
-              <v-flex style="flex: 0 0 50px">
-                <img src="/placeholder.jpg" />
-              </v-flex>
-              <v-flex xs11>
-                <div>
-                  <div>Ch.722: The Old You</div>
-                  <div>Tomo-chan wa Onna no ko!</div>
-                  <div>Dec 17</div>
-                </div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-        </v-card>
-    </v-flex>
-
+ 
   </v-layout>
     <div class="text-xs-center">
-      <v-pagination :length="this.count" :total-visible="10" v-model="this.chapters"></v-pagination>
+      <v-pagination :length="count" v-model="this.page" :total-visible="10"></v-pagination>
     </div>
 </div>
 
@@ -147,34 +96,20 @@
           {
             text: 'Contributor', value: 'contributor'
           }
-        ],
-        chapters: [],
-        limit: 25,
-        offset: 0,
-        order: 'desc',
-        sortby: 'TimeUploaded',
-        page: 0,
-        id: null,
-        count: 0
+        ]
       }
     },
-
-    async mounted () {
-      let chapters
-      try {
-        chapters = await this.$axios.$get('/series_chapters/' + this.route.params.id + '?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
-      } catch (err) {
-        chapters = this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
-      }
-      this.chapters = chapters.response
-      this.count = chapters.count
-      this.page = this.offset
-    },
-    methods: {
-      search: function (event) {
-        const chapters = this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
-        this.chapters = chapters.response
-        this.count = chapters.count
+    props: {
+      chapters: {
+        type: Array,
+        required: true
+      },
+      count: {
+        type: Number,
+        required: true
+      },
+      page: {
+        type: Number
       }
     },
     filters: {
