@@ -19,6 +19,14 @@
 
   
 </template>
+<style>
+.pagination__item {
+  width: auto;
+  min-width: 34px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+</style>
 <script>
 import AppHeader from '~/components/header'
 import Table from '~/components/table'
