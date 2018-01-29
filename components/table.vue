@@ -83,7 +83,7 @@
   export default {
     data: () => {
       return {
-        cdn: 'http://api.manga.sh:8080/uploads/covers/',
+        cdn: 'https://cdn.manga.sh/covers/',
         headers: [
           {
             text: 'Series', value: 'series'

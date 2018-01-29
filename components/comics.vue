@@ -53,7 +53,7 @@ export default {
   name: 'ComicsOne',
   data: () => {
     return {
-      cdn: 'http://api.manga.sh:8080/uploads/covers/'
+      cdn: '://cdn.manga.sh/covers/'
     }
   },
   props: {
