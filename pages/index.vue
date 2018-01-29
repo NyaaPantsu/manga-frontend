@@ -46,6 +46,7 @@ export default {
     const chapters = await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
     this.chapters = chapters['response']
     this.count = (chapters.count / this.limit)
+    this.count.toFixed(0)
     this.page = this.offset
   },
   methods: {
