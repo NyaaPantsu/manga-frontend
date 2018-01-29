@@ -54,7 +54,7 @@
           <v-divider ></v-divider>
           <v-layout class="pa-1">
             <v-flex xs8 sm6>
-              <img style="float: left; padding: 3px 4px;" src="/book_open.png" /> <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.1 Ch.2: 2</router-link>
+              <img style="float: left; padding: 3px 4px;" src="/book_open.png" /> <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }}</router-link>
             </v-flex>
             <v-flex xs4 hidden-xs-only>
               {{ item.ContributorId.Username }}
