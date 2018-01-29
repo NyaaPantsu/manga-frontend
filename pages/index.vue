@@ -4,6 +4,11 @@
     <AppHeader/>
 </div>
 <div>
+    <v-alert color="info" icon="info" value="true">
+      Please note many features are still WIP.
+      Manga from batoto hasn't been imported yet
+      Uploading, adding series, searching, logging in and signing up work
+    </v-alert>
     <Table :chapters="this.chapters" :count="this.count" :page="this.offset"/>
 </div>
 </div>
@@ -26,6 +31,7 @@ export default {
       sortby: 'TimeUploaded',
       page: 0,
       id: null,
+      query: [],
       count: 0
     }
   },
@@ -35,6 +41,8 @@ export default {
     Popular
   },
   async mounted () {
+    console.log(this.$route.query)
+    console.log(this.query)
     const chapters = await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
     this.chapters = chapters['response']
     this.count = (chapters.count / this.limit)
