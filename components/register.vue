@@ -55,7 +55,10 @@ export default {
         .then((response) => {
           var data = JSON.parse(response)
           if (data.success !== true) {
+            this.$store.commit('alerts/addAlert', { type: 'error', alert: 'The sign up attempt failed!' })
+            return
           }
+          this.$store.commit('alerts/addAlert', { type: 'success', alert: 'You signed up successfully!' })
           this.$router.push('/login')
         })
     }
