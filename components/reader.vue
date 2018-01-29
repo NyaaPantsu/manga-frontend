@@ -2,7 +2,7 @@
 <div>
   <v-layout row>
     <v-flex xs2>
-          <nuxt-link :to="{name: 'comics-id', params: {id: id}}">{{ series.Title }}</nuxt-link>
+          <nuxt-link :to="{name: 'comics-id', params: {id: this.series.Id}}">{{ series.Name }}</nuxt-link>
     </v-flex>
     <v-flex xs2>
       <div class="text-xs-center">
@@ -24,8 +24,8 @@
         <v-menu offset-y>
           <v-btn color="primary" dark slot="activator">Pages</v-btn>
           <v-list>
-            <v-list-tile v-for="image, index in pages">
-              <v-list-tile-title><nuxt-link :key="$route.fullPath" :to="{ name: 'reader-id',params: { id: hash },  query: { p: index }}">{{ index }}</nuxt-link></v-list-tile-title>
+            <v-list-tile v-for="image, index in images">
+              <v-list-tile-title><nuxt-link :key="$route.fullPath" :to="{ name: 'reader-id',params: { id: files.Hash },  query: { p: index }}">{{ index }}</nuxt-link></v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
@@ -66,12 +66,22 @@ export default {
       this.index = value
     },
     follow: function () {
-
+      var header = 'Bearer ' + this.$store.state.token
+      this.$axios.$get('/follow/' + this.series.Id, {
+        headers: {
+          Authorization: header
+        }
+      })
+      console.log(this.items)
     }
   },
   props: {
     series: {
-      type: Array,
+      type: Object,
+      required: true
+    },
+    files: {
+      type: Object,
       required: true
     },
     images: {

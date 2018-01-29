@@ -4,7 +4,7 @@
     <app-header/>
   </div>
   <div>
-    <reader :items="this.items" :series="this.series" :images="this.images"/>
+    <reader :items="this.items" :series="this.series" :files="this.files" :images="this.images"/>
   </div>
 
 </v-layout>
@@ -26,28 +26,26 @@ export default {
       offset: 0,
       limit: 1,
       count: 0,
-      hash: ' ',
       series: [],
-      pages: [],
       chapters: [],
+      files: [],
       id: 0
     }
   },
   async mounted () {
     var hash = this.$route.params.id
-    this.hash = hash
-
-    const data = await this.$axios.$get('/series_chapters/' + hash)
-    this.series = data['response'][0]
-    var array = Object.values(this.series.SeriesChaptersFiles)
-    this.pages = array
-    for (var index = 0; index < array.length; index++) {
-      this.images.push('https://cdn.manga.sh/' + array[index].Name)
-    }
-    this.count = data.count
-    this.id = this.series['SeriesId'].Id
-    const chapters = await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.id + ',ChapterLanguage.Name:' + this.series.ChapterLanguage.Name + '&orderby=TimeUploaded')
-    this.items = chapters['response']
+    await this.$axios.$get('/series_chapters/' + hash).then((data) => {
+      this.series = data['response'][0].SeriesId
+      this.files = data['response'][0]
+      var array = Object.values(this.files.SeriesChaptersFiles)
+      for (var index = 0; index < array.length; index++) {
+        this.images.push('http://api.manga.sh:8080/' + array[index].Name)
+      }
+      this.count = data.count
+    })
+    await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.series.Id + ',ChapterLanguage.Name:' + this.files.ChapterLanguage.Name + '&orderby=TimeUploaded').then((response) => {
+      this.items = response['response']
+    })
   }
 }
 </script>
