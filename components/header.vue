@@ -45,7 +45,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-      <v-switch v-model="nsfw" label="nsfw" dark></v-switch>
+      <v-spacer></v-spacer>
                      <v-select
           v-model="name"
             :loading="loading"
@@ -60,9 +60,17 @@
         ></v-select>
 
           </v-flex>
+           <v-btn icon @click="toggleExtension">
+        <v-icon>search</v-icon>
+      </v-btn>
+      <v-layout row v-if="this.$store.state.extended" slot="extension">
+
+            <v-switch v-model="nsfw" label="NSFW" dark></v-switch>
+            <v-select v-model="language"></v-select>
+            <v-select v-model="tags"></v-select>
+      </v-layout>
 
 
-      </v-toolbar-title>
        
       <v-menu
         v-if="this.$store.state.user"
