@@ -5,7 +5,7 @@
        <v-layout row class="px-2">
 
         <v-flex xs3 mb5>
-          <img :src="cdn + series.CoverImage" style="max-width:500px; max-height: 500px;"/>
+          <img :src="cdn + series.CoverImage" style="max-width:250px; max-height: 500px;"/>
         </v-flex>
         <v-flex xs12>
           <v-layout column class="pa-1">

@@ -9,7 +9,10 @@
       Manga from batoto hasn't been imported yet
       Uploading, adding series, searching, logging in and signing up work
     </v-alert>
-    <Table :chapters="this.chapters" :count="this.count" :page="this.offset"/>
+    <Table :chapters="this.chapters"/>
+    <div class="text-xs-center">
+      <v-pagination :length="count" v-model="page" :total-visible="10"></v-pagination>
+    </div>
 </div>
 </div>
 
@@ -29,7 +32,7 @@ export default {
       offset: 0,
       order: 'desc',
       sortby: 'TimeUploaded',
-      page: 0,
+      page: 1,
       id: null,
       query: [],
       count: 0
@@ -41,13 +44,21 @@ export default {
     Popular
   },
   async mounted () {
-    console.log(this.$route.query)
-    console.log(this.query)
-    const chapters = await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
-    this.chapters = chapters['response']
-    this.count = (chapters.count / this.limit)
-    this.count.toFixed(0)
-    this.page = this.offset
+    await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit).then((response) => {
+      this.chapters = response['response']
+      this.count = (response.count / this.limit)
+      this.count.toFixed(0)
+    })
+  },
+  watch: {
+    page: function (val) {
+      var offset = (this.limit * this.page) - 1
+      this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + offset).then((response) => {
+        this.chapters = response['response']
+        this.count = (response.count / this.limit)
+        this.count.toFixed(0)
+      })
+    }
   },
   methods: {
     search: function (event) {
