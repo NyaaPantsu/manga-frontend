@@ -72,9 +72,7 @@
     </v-flex>
  
   </v-layout>
-    <div class="text-xs-center">
-      <v-pagination :length="count" v-model="this.page" :total-visible="10"></v-pagination>
-    </div>
+
 </div>
 
 </template>
