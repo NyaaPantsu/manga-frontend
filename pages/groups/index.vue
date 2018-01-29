@@ -17,6 +17,8 @@
                   v-list-tile-content
                     v-list-tile-title(v-text="group.Name")
                     v-list-tile-sub-title(v-html="group.Description")
+      div(text-xs-center)
+        v-pagination(:length="this.count" v-model="page" :total-visible="10")
 </template>
 <script>
 import AppHeader from '~/components/header'
@@ -29,14 +31,27 @@ export default {
     return {
       groups: [],
       limit: 25,
-      offset: 0
+      offset: 0,
+      page: 1,
+      count: 0
     }
   },
   async mounted () {
     await this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + this.offset).then((response) => {
       this.groups = response['response']
-      console.log(response['response'])
+      this.count = (response['count'] / this.limit)
+      this.count.toFixed(0)
     })
+  },
+  watch: {
+    page: function (val) {
+      var offset = (this.limit * this.page) - 1
+      this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + offset).then((response) => {
+        this.groups = response['response']
+        this.count = (response['count'] / this.limit)
+        this.count.toFixed(0)
+      })
+    }
   }
 }
 </script>
