@@ -17,26 +17,38 @@
         require
       ></v-text-field>
        <v-select
-              v-model="tags"
+                v-model="tag"
               label="Tags"
+            :loading="loadingtags"
+            dark
+                :search-input.sync="tagsSearch"
               chips
               tags
-              :items="proptags"
+              autocomplete
+              :items="tags"
             ></v-select>
         <v-select
-              v-model="authors"
+                        v-model="author"
               label="Authors"
+            :loading="loadingauthors"
+            dark
+                :search-input.sync="authorsSearch"
               chips
               tags
-              v-bind:items="propauthors"
+              autocomplete
+              :items="authors"
             >
             </v-select>
                <v-select
-              v-model="artists"
+                                       v-model="artist"
               label="Artists"
+            :loading="loadingartists"
+            dark
+                :search-input.sync="artistsSearch"
               chips
               tags
-              :items="propartists"
+              autocomplete
+              :items="artists"
             ></v-select>
                            <v-select
               v-model="aliases"
@@ -65,6 +77,15 @@ export default {
     return {
       name: '',
       description: '',
+      tag: [],
+      author: [],
+      artist: [],
+      tagsSearch: null,
+      authorsSearch: null,
+      artistsSearch: null,
+      loadingtags: false,
+      loadingauthors: false,
+      loadingartists: false,
       tags: [],
       authors: [],
       artists: [],
@@ -91,18 +112,15 @@ export default {
       ]
     }
   },
-  props: {
-    proptags: {
-      type: Array,
-      required: true
+  watch: {
+    tagsSearch (val) {
+      val && this.queryTags(val)
     },
-    propauthors: {
-      type: Array,
-      required: true
+    authorsSearch (val) {
+      val && this.queryAuthors(val)
     },
-    propartists: {
-      type: Array,
-      required: true
+    artistsSearch (val) {
+      val && this.queryArtists(val)
     }
   },
   methods: {
@@ -112,9 +130,9 @@ export default {
       formData.append('typedemonym', this.typedemonym)
       formData.append('typename', this.typename)
       formData.append('mature', this.mature)
-      formData.append('tags', this.tags.join())
-      formData.append('artists', this.artists.join())
-      formData.append('authors', this.authors.join())
+      formData.append('tags', this.tag.join())
+      formData.append('artists', this.artist.join())
+      formData.append('authors', this.author.join())
       for (var pair of formData.entries()) {
         console.log(pair[0] + ', ' + pair[1])
       }
@@ -125,6 +143,36 @@ export default {
       }).then((response) => {
         console.log(response)
       })
+    },
+    queryTags (v) {
+      this.loadingtags = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.$axios.$get('/tags?query=Name__icontains:' + v).then((response) => {
+          this.tags = response['response'].map(function (item) { return item.Name })
+          this.loadingtags = false
+        })
+      }, 500)
+    },
+    queryAuthors (v) {
+      this.loadingauthors = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.$axios.$get('/tags?query=NameSpace:author,Name__icontains:' + v).then((response) => {
+          this.authors = response['response'].map(function (item) { return item.Name })
+          this.loadingauthors = false
+        })
+      }, 500)
+    },
+    queryArtists (v) {
+      this.loadingartists = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.$axios.$get('/tags?query=NameSpace:artist,Name__icontains:' + v).then((response) => {
+          this.artists = response['response'].map(function (item) { return item.Name })
+          this.loadingartists = false
+        })
+      }, 500)
     }
   }
 }

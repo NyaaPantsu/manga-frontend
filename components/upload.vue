@@ -20,6 +20,9 @@
                    <v-select
               v-model="group"
               label="Groups"
+            :loading="loadinggroup"
+            dark
+                :search-input.sync="groupSearch"
               chips
               tags
               autocomplete
@@ -46,22 +49,20 @@ export default {
       title: '',
       language: '',
       group: [],
+      groups: [],
       volumenumber: 0,
       volumechapternumber: 0,
       absolutenumber: 0,
       delay: 0,
       files: '',
       items: [],
-      loading: false,
-      search: null
+      loadinggroup: false,
+      search: null,
+      groupSearch: null
     }
   },
   props: {
     languages: {
-      type: Array,
-      required: true
-    },
-    groups: {
       type: Array,
       required: true
     }
@@ -69,6 +70,9 @@ export default {
   watch: {
     search (val) {
       val && this.querySelections(val)
+    },
+    groupSearch (val) {
+      val && this.queryGroups(val)
     }
   },
   methods: {
@@ -82,9 +86,6 @@ export default {
       formData.append('groups', this.group.join())
       formData.append('languages', this.language)
       formData.append('delay', this.delay)
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
       var header = 'Bearer ' + this.$store.state.token
       this.$axios.$post('/series_chapters', formData, {
         headers: {
@@ -92,6 +93,16 @@ export default {
       }).then((response) => {
         console.log(response)
       })
+    },
+    queryGroups (v) {
+      this.loadinggroup = true
+      // Simulated ajax query
+      setTimeout(() => {
+        this.$axios.$get('/groups_scanlation?query=Name__icontains:' + v).then((response) => {
+          this.groups = response['response'].map(function (item) { return item.Name })
+          this.loadinggroup = false
+        })
+      }, 500)
     },
     querySelections (v) {
       this.loading = true

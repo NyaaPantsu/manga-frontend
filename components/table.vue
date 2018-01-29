@@ -42,8 +42,8 @@
         v-bind:item="item"
         v-bind:index="index"
         v-bind:key="item.id">
-        <v-flex style="flex: 0 0 50px">
-          <img src="/information.png"/>
+        <v-flex style="flex: 0 0 50px;">
+          <img :src="cdn + item.SeriesId.CoverImage" style="max-width: 50px; max-height: 50px;"/>
         </v-flex>
         <v-flex xs12>
           <v-layout class="pa-1">
@@ -83,6 +83,7 @@
   export default {
     data: () => {
       return {
+        cdn: 'http://api.manga.sh:8080/uploads/covers/',
         headers: [
           {
             text: 'Series', value: 'series'

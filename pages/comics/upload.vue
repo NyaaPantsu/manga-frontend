@@ -27,8 +27,6 @@ export default {
   async mounted () {
     const languages = await this.$axios.$get('/languages')
     this.languages = languages['response'].map(function (item) { return item.Name })
-    const groups = await this.$axios.$get('/groups_scanlation')
-    this.groups = groups['response'].map(function (item) { return item.Name })
   }
 }
 </script>

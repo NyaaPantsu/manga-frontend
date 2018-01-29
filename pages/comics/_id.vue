@@ -45,6 +45,7 @@ export default {
     }
     this.chapters = chapters
     this.series = series['response'][0]
+    console.log(this.series.CoverImage)
   }
 }
 </script>
