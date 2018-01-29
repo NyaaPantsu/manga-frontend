@@ -39,7 +39,7 @@ module.exports = {
     host: 'localhost',
     port: 8080,
     prefix: '/api/v1/',
-    baseURL: 'http://api.manga.sh:8080/api/v1/',
+    baseURL: 'https://api.manga.sh/api/v1/',
     credentials: false
   },
   /*

@@ -33,8 +33,10 @@ export default {
     }
   },
   async mounted () {
-    const groups = await this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + this.offset)
-    this.groups = groups
+    await this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + this.offset).then((response) => {
+      this.groups = response['response']
+      console.log(response['response'])
+    })
   }
 }
 </script>
