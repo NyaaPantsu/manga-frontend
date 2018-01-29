@@ -39,7 +39,7 @@ export default {
       this.files = data['response'][0]
       var array = Object.values(this.files.SeriesChaptersFiles)
       for (var index = 0; index < array.length; index++) {
-        this.images.push('http://api.manga.sh:8080/' + array[index].Name)
+        this.images.push('https://cdn.manga.sh/' + array[index].Name)
       }
       this.count = data.count
     })
