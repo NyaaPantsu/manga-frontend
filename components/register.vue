@@ -53,8 +53,7 @@ export default {
     submit: function (e) {
       this.$axios.$post('/auth/register', JSON.stringify({username: this.username, email: this.email, password: this.password}))
         .then((response) => {
-          var data = JSON.parse(response)
-          if (data.success !== true) {
+          if (response['success'] !== true) {
             this.$store.commit('alerts/addAlert', { type: 'error', alert: 'The sign up attempt failed!' })
             return
           }
