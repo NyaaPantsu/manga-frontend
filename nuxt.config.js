@@ -22,6 +22,7 @@ module.exports = {
     { src: '~/plugins/infinite-loading.js', ssr: false }
   ],
   modules: [
+    '@nuxtjs/font-awesome',
     '@nuxtjs/axios'
   ],
   css: [

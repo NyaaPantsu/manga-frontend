@@ -4,8 +4,8 @@
     <v-card-text>
        <v-layout row class="px-2">
 
-        <v-flex xs3>
-          <img :src="cdn + this.series.CoverImage + thumb"/>
+        <v-flex xs3 mb5>
+          <img :src="cdn + series.CoverImage" style="max-width:500px; max-height: 500px;"/>
         </v-flex>
         <v-flex xs12>
           <v-layout column class="pa-1">
@@ -23,12 +23,12 @@
                 <v-chip color="primary" text-color="white" v-for="tag in series.SeriesTags">{{ tag.TagNamespace }}:{{ tag.TagName }}</v-chip>
             </v-flex>
             <v-flex>
-              {{ this.series.SeriesRatings }}
+              {{ series.SeriesRatings }}
             </v-flex>
             <v-flex>
-              <v-chip>{{ this.series.TypeName }}</v-chip>
+              <v-chip>{{ series.TypeName }}</v-chip>
               <v-chip>
-               {{ this.series.TypeDemonym }}
+               {{ series.TypeDemonym }}
               </v-chip>
             </v-flex>
             <v-flex>
@@ -53,13 +53,12 @@ export default {
   name: 'ComicsOne',
   data: () => {
     return {
-      cdn: 'http://api.manga.sh:8080/uploads/covers/',
-      thumb: '_thumb'
+      cdn: 'http://api.manga.sh:8080/uploads/covers/'
     }
   },
   props: {
     series: {
-      type: Array,
+      type: Object,
       required: true
     }
   },
