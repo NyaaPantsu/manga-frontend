@@ -6,70 +6,53 @@ export const state = () => ({
 })
 
 export const mutations = {
-  addAlert (state, {
-    atype,
-    alert
-  }) {
-    state[atype].push(alert)
+  addAlert (state, alert) {
+    state[alert.type].push(alert.alert)
   },
-  removeAlert (state, {
-    atype,
-    alertIndex
-  }) {
-    state[atype] = state[atype].splice(alertIndex, 1)
+  removeAlert (state, alert) {
+    state[alert.type] = state[alert.type].splice(alert.index, 1)
   },
-  clearAlert (state, atype) {
-    state[atype] = []
+  clearAlert (state, type) {
+    state[type] = []
   },
-  consumeAlert ({ state, commit }, {
-    atype,
-    alertIndex
-  }) {
-    // error handling -- non-number type is error state
-    if (typeof state[atype][alertIndex].remainingCount !== 'number') {
-      commit('removeAlert', {
-        atype,
-        alertIndex
-      })
+  consumeAlert (store, alert) {
+    // error handling -- non-number type is error store.state
+    if (typeof store.state[alert.type][alert.index].remainingCount !== 'number') {
+      store.commit('removeAlert', alert)
     }
     // if not persistent alert
-    if (state[atype][alertIndex].remainingCount !== -1) {
-      state[atype][alertIndex].remainingCount -= 1
+    if (store.state[alert.type][alert.index].remainingCount !== -1) {
+      store.state[alert.type][alert.index].remainingCount -= 1
       // if no remainingCount left, remove
-      if (state[atype][alertIndex].remainingCount === 0) {
-        commit('removeAlert', {
-          atype,
-          alertIndex
-        })
+      if (store.state[alert.type][alert.index].remainingCount === 0) {
+        store.commit('removeAlert', alert)
       }
     }
   }
 }
 
 export const actions = {
-  getAlerts ({ state, commit }) {
+  getAlerts (store) {
     let alerts = []
     for (let atype of ['success', 'warn', 'info', 'error']) {
-      for (let alertIndex in state[atype]) {
-        if (typeof state[atype][alertIndex] === 'string') {
+      for (let alertIndex in store.state[atype]) {
+        if (typeof store.state[atype][alertIndex] === 'string') {
           alerts.push({
-            text: state[atype][alertIndex],
+            text: store.state[atype][alertIndex],
             remainingCount: 1,
             type: atype
           })
-        } else if (typeof state[atype][alertIndex] === 'object') {
+        } else if (typeof store.state[atype][alertIndex] === 'object') {
           alerts.push({
-            ...state[atype][alertIndex],
+            ...store.state[atype][alertIndex],
             type: atype
           })
         } else {
           // error state
         }
-        commit('consumeAlert', {
-          atype,
-          alertIndex
-        })
+        store.commit('consumeAlert', { type: atype, index: alertIndex })
       }
     }
+    return alerts
   }
 }
