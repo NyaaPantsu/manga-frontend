@@ -32,9 +32,9 @@
               autocomplete
               :items="groups"
             ></v-select>
-            <v-text-field v-model="volumenumber" label="Volume Number" mask="###"></v-text-field>
-            <v-text-field v-model="volumechapternumber" label="Volume Chapter Number" mask="###.###"></v-text-field>
-            <v-text-field v-model="absolutenumber" label="Absolute Chapter Number" mask="###.###"></v-text-field>
+            <v-text-field v-model="volume" label="Volume Number" mask="###"></v-text-field>
+            <v-text-field v-model="volumechapter" label="Volume Chapter Number" mask="###.###"></v-text-field>
+            <v-text-field v-model="absolute" label="Absolute Chapter Number" mask="###.###"></v-text-field>
             <v-text-field v-model="delay" label="Release Delay" mask="###"></v-text-field>
               <input type="file" name="files"/>
       <v-btn @click="submit">
@@ -54,9 +54,9 @@ export default {
       language: '',
       group: [],
       groups: [],
-      volumenumber: 0,
-      volumechapternumber: 0,
-      absolutenumber: 0,
+      volume: 0,
+      volumechapter: 0,
+      absolute: 0,
       delay: 0,
       files: '',
       items: [],
@@ -86,9 +86,9 @@ export default {
       var formData = new FormData(document.getElementById('form'))
       formData.append('name', this.name)
       formData.append('title', this.title)
-      formData.append('chapternum', this.absolutenumber)
-      formData.append('chaptervol', this.volumechapternumber)
-      formData.append('volnum', this.volumenumber)
+      formData.append('absolute', this.absolute)
+      formData.append('chapter', this.volumechapter)
+      formData.append('volume', this.volume)
       formData.append('groups', this.group.join())
       formData.append('languages', this.language)
       formData.append('delay', this.delay)
