@@ -9,6 +9,7 @@ export default {
   methods: {
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files
+      console.log(files)
       if (!files.length) {
         return
       }
@@ -17,14 +18,14 @@ export default {
     createInput: function (file) {
       this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
       var reader = new FileReader()
-      var vm = this
       reader.onload = (e) => {
-        vm.fileinput = reader.result
+        this.fileinput = reader.result
+        var header = 'Bearer ' + this.$store.state.token
+        this.$axios.$post('/follows/import', reader.result, { headers: { Authorization: header } }).then((response) => {
+          console.log(response)
+        })
       }
-      console.log(this.$store.state.token)
-      var header = 'Bearer ' + this.$store.state.token
-      console.log(header)
-      this.$axios.$post('/follows/import', JSON.stringify(reader.readAsText(file)), { headers: { Authorization: header } })
+      reader.readAsText(file)
     }
   }
 }
