@@ -59,8 +59,8 @@
             <v-flex xs8 sm6>
               <img style="float: left; padding: 3px 4px;" src="/book_open.png" /> <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }}</router-link>
             </v-flex>
-            <v-flex xs4 hidden-xs-only>
-              {{ item.ContributorId.Username }}
+            <v-flex xs2 hidden-xs-only v-for="groups in item.SeriesChaptersGroups">
+              {{ groups.GroupName }}
             </v-flex>
             <v-flex xs4 sm2 hidden-xs-only>
               <flag :iso="item.ChapterLanguage.Code" />
@@ -88,14 +88,23 @@
             <span>
               <timeago :since="item.TimeUploaded | timestamp"></timeago>
             </span>
+            <span v-for="groups in item.SeriesChaptersGroups">
+              {{ groups.GroupName }}
+            </span>
             <span>
               {{ item.ContributorId.Username }}
             </span>
           </div> 
         </v-card-title>
         <v-card-actions>
-           <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }}</router-link>
-              <flag :iso="item.ChapterLanguage.Code" />
+           <v-spacer></v-spacer>
+                <v-btn icon>
+                  <v-icon>fa fa-book</v-icon>
+                </v-btn>
+                  <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch.  {{ item.ChapterNumberVolume }}{{ item.ChapterNumberAbsolute }}</router-link>
+                <v-btn icon>
+                  <flag :iso="item.ChapterLanguage.Code" />
+                </v-btn>
           
         </v-card-actions>
       </v-card>
