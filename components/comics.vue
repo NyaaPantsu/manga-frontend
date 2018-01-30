@@ -69,9 +69,8 @@ export default {
   },
   watch: {
     rating: function (event) {
-
     }
-  }
+  },
   methods: {
     follow: function (event) {
       var header = 'Bearer ' + this.$store.state.token
