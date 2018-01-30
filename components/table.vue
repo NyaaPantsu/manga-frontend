@@ -1,19 +1,22 @@
 <template>
+<div>
+
 <div column>
     <v-layout row>
-    <v-flex xs12 md9>
+    <v-flex>
       <v-layout row>
         <v-toolbar dark color="blue-grey darken-3" class="pa-0">
           <v-toolbar-title class="white--text">Latest Updates</v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-btn icon>
+          <v-btn icon @click="changeView">
             <v-icon>apps</v-icon>
           </v-btn>
-          <v-btn icon>
+          <v-btn icon @click="changeView">
             <v-icon>list</v-icon>
           </v-btn>
         </v-toolbar>
       </v-layout>
+      <div v-if="table">
 
       <v-layout class="pa-1">
         <v-flex style="flex: 0 0 50px">
@@ -38,7 +41,7 @@
           <v-divider ></v-divider>
         </v-flex>
       </v-layout>
-      <v-layout row class="px-2" v-for="(item, index) in chapters"
+      <v-layout row class="px-2"  v-for="(item, index) in chapters"
         v-bind:item="item"
         v-bind:index="index"
         v-bind:key="item.id">
@@ -69,9 +72,44 @@
           <v-divider></v-divider>
         </v-flex>
       </v-layout>
+      </div>
+      <div v-else>
+  <v-layout row wrap>
+    <v-flex xs3 v-for="(item, index) in chapters">
+      <v-card>
+        <v-card-media>
+          <img :src="cdn + item.SeriesId.CoverImage" style="max-width: 250px; max-height: 300px;"/>
+        </v-card-media>
+        <v-card-title>
+          <div>
+            <span>
+               <router-link :to="{ name: 'comics-id', params: { id: item.SeriesId.Id }}">{{ item.SeriesId.Name }}</router-link>
+            </span>
+            <span>
+              <timeago :since="item.TimeUploaded | timestamp"></timeago>
+            </span>
+            <span>
+              {{ item.ContributorId.Username }}
+            </span>
+          </div> 
+        </v-card-title>
+        <v-card-actions>
+           <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }}</router-link>
+              <flag :iso="item.ChapterLanguage.Code" />
+          
+        </v-card-actions>
+      </v-card>
+    </v-flex>
+
+  </v-layout>
+
+</div>
     </v-flex>
  
   </v-layout>
+
+</div>
+
 
 </div>
 
@@ -95,7 +133,8 @@
           {
             text: 'Contributor', value: 'contributor'
           }
-        ]
+        ],
+        table: true
       }
     },
     props: {
@@ -109,6 +148,11 @@
       },
       page: {
         type: Number
+      }
+    },
+    methods: {
+      changeView: function () {
+        this.table = !this.table
       }
     },
     filters: {
