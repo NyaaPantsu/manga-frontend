@@ -34,8 +34,8 @@ export default {
     await this.$axios.$get('/follows', { headers: { Authorization: header } }).then((response) => {
       console.log(response)
       this.chapters = response['response']
-      this.count = (response.count / this.limit)
-      this.count.toFixed(0)
+      var count = (response.count / this.limit)
+      this.count = Number(count.toFixed(0))
     })
   },
   watch: {
@@ -44,8 +44,8 @@ export default {
       var offset = (this.limit * this.page) - 1
       this.$axios.$get('/follows?limit=' + this.limit + '&offset=' + offset, { headers: { Authorization: header } }).then((response) => {
         this.chapters = response['response']
-        this.count = (response.count / this.limit)
-        this.count.toFixed(0)
+        var count = (response.count / this.limit)
+        this.count = Number(count.toFixed(0))
       })
     }
   }

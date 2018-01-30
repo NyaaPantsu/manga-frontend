@@ -39,8 +39,8 @@ export default {
   async mounted () {
     await this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + this.offset).then((response) => {
       this.groups = response['response']
-      this.count = (response['count'] / this.limit)
-      this.count.toFixed(0)
+      var count = (response.count / this.limit)
+      this.count = Number(count.toFixed(0))
     })
   },
   watch: {
@@ -48,8 +48,8 @@ export default {
       var offset = (this.limit * this.page) - 1
       this.$axios.$get('/groups_scanlation?limit=' + this.limit + '&offset=' + offset).then((response) => {
         this.groups = response['response']
-        this.count = (response['count'] / this.limit)
-        this.count.toFixed(0)
+        var count = (response.count / this.limit)
+        this.count = Number(count.toFixed(0))
       })
     }
   }

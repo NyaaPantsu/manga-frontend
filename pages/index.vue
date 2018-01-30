@@ -46,8 +46,8 @@ export default {
   async mounted () {
     await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit).then((response) => {
       this.chapters = response['response']
-      this.count = (response.count / this.limit)
-      this.count.toFixed(0)
+      var count = (response.count / this.limit)
+      this.count = Number(count.toFixed(0))
     })
   },
   watch: {
@@ -55,8 +55,8 @@ export default {
       var offset = (this.limit * this.page) - 1
       this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + offset).then((response) => {
         this.chapters = response['response']
-        this.count = (response.count / this.limit)
-        this.count.toFixed(0)
+        var count = (response.count / this.limit)
+        this.count = Number(count.toFixed(0))
       })
     }
   },
