@@ -1,11 +1,23 @@
 <template>
+<div>
+  <div>
+    <app-header />
+  </div>
+  <div>
 <form enctype="multipart/form-data">
         <input type="file" @change="onFileChange">
     </form>
+  </div>
+</div>
+
 </template>
 <script>
+import AppHeader from '~/components/header'
 export default {
   name: 'ImportFollows',
+  components: {
+    AppHeader
+  },
   methods: {
     onFileChange: function (e) {
       var files = e.target.files || e.dataTransfer.files
