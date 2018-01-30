@@ -3,7 +3,7 @@
     <v-content>
       <v-container>
         <template v-for="alert in getAlerts">
-          <v-alert :key="alert" :type="alert.type" :value="alert.text">{{alert.text}}</v-alert>
+          <v-alert :key="alert" :type="alert.type" dismissible :value="alert.text">{{alert.text}}</v-alert>
         </template>
         <nuxt />
       </v-container>

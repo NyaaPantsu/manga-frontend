@@ -45,8 +45,11 @@ export default {
     submit: function (e) {
       this.$axios.$post('/auth/login', JSON.stringify({username: this.username, password: this.password}))
         .then((response) => {
+          if (response['response'] === null) {
+            this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error incorrect username or password' })
+            return
+          }
           var data = response['response'][0]
-          console.log(data)
           if (response['success'] !== true) {
             this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Your sign in attempt failed!' })
             return
