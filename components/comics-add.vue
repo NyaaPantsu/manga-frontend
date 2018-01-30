@@ -1,5 +1,10 @@
 <template>
   <div>
+    
+     <loading
+     :show="this.$store.state.show"
+     :label="loading">
+ </loading>
     <v-card color="secondary" flat>
       <v-card-text>
       
@@ -133,16 +138,25 @@ export default {
       formData.append('tags', this.tag.join())
       formData.append('artists', this.artist.join())
       formData.append('authors', this.author.join())
-      for (var pair of formData.entries()) {
-        console.log(pair[0] + ', ' + pair[1])
-      }
       var header = 'Bearer ' + this.$store.state.token
-      this.$axios.$post('/series', formData, {
-        headers: {
-          Authorization: header}
-      }).then((response) => {
-        console.log(response)
-      })
+      this.$store.commit('show', true)
+      setTimeout(() => {
+        this.$axios.$post('/series', formData, {
+          headers: {
+            Authorization: header}
+        }).then((response) => {
+          this.$store.commit('show', false)
+          if (response['response'] === null) {
+            this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error something went wrong' })
+            return
+          }
+          if (response['success'] !== true) {
+            this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error upload attempt failed' })
+            return
+          }
+          this.$store.commit('alerts/addAlert', { type: 'success', alert: 'You successfully added a chapter!' })
+        })
+      }, 500)
     },
     queryTags (v) {
       this.loadingtags = true

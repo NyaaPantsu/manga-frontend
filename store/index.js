@@ -4,10 +4,14 @@ export const state = () => ({
   user: false,
   extended: false,
   username: null,
-  token: null
+  token: null,
+  show: false
 })
 
 export const mutations = {
+  show (state, show) {
+    state.show = show
+  },
   toggleSidebar (state) {
     state.sidebar = !state.sidebar
   },

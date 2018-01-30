@@ -14,7 +14,6 @@
 <script>
 export default {
   name: 'DefaultLayout',
-
   computed: {
     getAlerts () {
       let alerts = []

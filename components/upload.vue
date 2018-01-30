@@ -1,5 +1,9 @@
 <template>
   <div>
+     <loading
+     :show="this.$store.state.show"
+     :label="loading">
+ </loading>
         <v-card color="secondary" flat>
       <v-card-text>
       <v-form id="form">
@@ -57,6 +61,8 @@ export default {
       files: '',
       items: [],
       loadinggroup: false,
+      show: false,
+      label: 'Uploading',
       search: null,
       groupSearch: null
     }
@@ -87,12 +93,24 @@ export default {
       formData.append('languages', this.language)
       formData.append('delay', this.delay)
       var header = 'Bearer ' + this.$store.state.token
-      this.$axios.$post('/series_chapters', formData, {
-        headers: {
-          Authorization: header}
-      }).then((response) => {
-        console.log(response)
-      })
+      this.$store.commit('show', true)
+      setTimeout(() => {
+        this.$axios.$post('/series_chapters', formData, {
+          headers: {
+            Authorization: header}
+        }).then((response) => {
+          this.$store.commit('show', false)
+          if (response['response'] === null) {
+            this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error something went wrong' })
+            return
+          }
+          if (response['success'] !== true) {
+            this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error upload attempt failed' })
+            return
+          }
+          this.$store.commit('alerts/addAlert', { type: 'success', alert: 'You successfully added a chapter!' })
+        })
+      }, 500)
     },
     queryGroups (v) {
       this.loadinggroup = true

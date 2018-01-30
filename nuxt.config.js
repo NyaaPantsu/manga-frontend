@@ -12,6 +12,7 @@ module.exports = {
   plugins: [
     '~/plugins/vuetify.js',
     { src: '~/plugins/vue-gallery.js', ssr: false },
+    { src: '~/plugins/vue-loading.js', ssr: false },
     { src: '~/plugins/vue-stars.js', ssr: true },
     { src: '~/plugins/vue-timeago.js', ssr: false },
     { src: '~/plugins/flag-icons.js', ssr: false },

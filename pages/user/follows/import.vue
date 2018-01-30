@@ -4,6 +4,10 @@
     <app-header />
   </div>
   <div>
+      <loading
+     :show="this.$store.state.show"
+     :label="loading">
+ </loading>
 <form enctype="multipart/form-data">
         <input type="file" @change="onFileChange">
     </form>
@@ -33,9 +37,21 @@ export default {
       reader.onload = (e) => {
         this.fileinput = reader.result
         var header = 'Bearer ' + this.$store.state.token
-        this.$axios.$post('/follows/import', reader.result, { headers: { Authorization: header } }).then((response) => {
-          console.log(response)
-        })
+        this.$store.commit('show', true)
+        setTimeout(() => {
+          this.$axios.$post('/follows/import', reader.result, { headers: { Authorization: header } }).then((response) => {
+            this.$store.commit('show', false)
+            if (response['response'] === null) {
+              this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error something went wrong' })
+              return
+            }
+            if (response['success'] !== true) {
+              this.$store.commit('alerts/addAlert', { type: 'error', alert: 'Error upload attempt failed' })
+              return
+            }
+            this.$store.commit('alerts/addAlert', { type: 'success', alert: 'You successfully added a chapter!' })
+          })
+        }, 500)
       }
       reader.readAsText(file)
     }
