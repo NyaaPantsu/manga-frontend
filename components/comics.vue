@@ -5,7 +5,7 @@
        <v-layout row class="px-2">
 
         <v-flex xs3 mb5>
-          <img :src="cdn + series.CoverImage" style="max-width:250px; max-height: 500px;"/>
+          <img :src="cdn + series.CoverImage" style="max-width:200px; max-height: 500px;"/>
         </v-flex>
         <v-flex xs12>
           <v-layout column class="pa-1">
@@ -14,6 +14,7 @@
                 <div>
                   <h3 class="headline mb-0">{{ this.series.Name }}</h3>
                   <v-chip color="primary" text-color="white" v-for="alias in series.SeriesAliases">{{ alias.Name }}</v-chip>
+                  <vue-stars v-model="rating" :max="5"/>
                 </div>
               </v-card-title>
             </v-flex>
@@ -22,14 +23,14 @@
             <v-flex>
                 <v-chip color="primary" text-color="white" v-for="tag in series.SeriesTags">{{ tag.TagNamespace }}:{{ tag.TagName }}</v-chip>
             </v-flex>
-            <v-flex>
-              {{ series.SeriesRatings }}
-            </v-flex>
+
             <v-flex>
               <v-chip>{{ series.TypeName }}</v-chip>
               <v-chip>
                {{ series.TypeDemonym }}
               </v-chip>
+              
+                <v-chip color="primary" text-color="white" v-for="key in series.Status">{{ key }}</v-chip>
             </v-flex>
             <v-flex>
             </v-flex> 
@@ -40,20 +41,24 @@
       </v-card-text>
       <v-card-actions>
           <v-btn fab dark small color="pink" @click="follow"><v-icon dark>favorite</v-icon></v-btn>
-          <v-btn fab dark small color="indigo"><v-icon dark>star</v-icon></v-btn>
-          <v-btn fab dark small color="indigo"><v-icon dark>pen</v-icon></v-btn>
-          <v-btn fab dark small color="indigo"><v-icon dark>star</v-icon></v-btn>
+          <v-btn fab dark small color="indigo"><v-icon dark>fa fa-pencil</v-icon></v-btn>
+          <v-btn fab dark small color="red"><v-icon dark>fa fa-trash</v-icon></v-btn>
         </v-card-actions>
       
          </v-card>
 </div>
 </template>
 <script>
+import VueStars from 'vue-stars'
 export default {
   name: 'ComicsOne',
+  components: {
+    VueStars
+  },
   data: () => {
     return {
-      cdn: 'https://cdn.manga.sh/covers/'
+      cdn: 'https://cdn.manga.sh/covers/',
+      rating: 5
     }
   },
   props: {
@@ -62,6 +67,11 @@ export default {
       required: true
     }
   },
+  watch: {
+    rating: function (event) {
+
+    }
+  }
   methods: {
     follow: function (event) {
       var header = 'Bearer ' + this.$store.state.token
@@ -69,8 +79,6 @@ export default {
       }).then((response) => {
         console.log(response)
       })
-    },
-    rate: function (event) {
     }
   }
 }

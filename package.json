@@ -13,6 +13,7 @@
   "dependencies": {
     "@nuxtjs/axios": "^4.5.2",
     "@nuxtjs/font-awesome": "^1.0.3",
+    "@nuxtjs/pwa": "^2.0.5",
     "font-awesome": "^4.7.0",
     "nuxt": "^1.0.0",
     "pug": "^2.0.0-rc.4",
@@ -21,6 +22,7 @@
     "vue-gallery": "^1.2.5",
     "vue-infinite-loading": "^2.2.3",
     "vue-simplemde": "^0.4.6",
+    "vue-stars": "^0.3.0",
     "vue-timeago": "^3.4.2",
     "vuetify": "^0.17.4"
   },

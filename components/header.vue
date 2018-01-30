@@ -60,7 +60,7 @@
         ></v-select>
 
           </v-flex>
-           <v-btn icon @click="toggleExtension">
+           <v-btn icon @click="toggleExtension" hidden-xs-only>
         <v-icon>search</v-icon>
       </v-btn>
       <v-layout row v-if="this.$store.state.extended" slot="extension">
@@ -75,6 +75,7 @@
       <v-menu
         v-if="this.$store.state.user"
         offset-y
+        hidden-xs-only
       >
         <v-btn
           :ripple="false"

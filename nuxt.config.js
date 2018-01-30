@@ -1,27 +1,24 @@
 module.exports = {
-    /*
-     ** Headers of the page
-     */
+  /*
+  ** Headers of the page
+  */
   head: {
-      title: 'manga.sh',
-      meta: [
-          { charset: 'utf-8' },
-          { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-          { hid: 'description', name: 'description', content: 'Frontend for manga.sh, a Batoto replacement by the NyaaPantsu project.' }
-      ],
-      link: [
-          { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-          { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
-      ]
+    title: 'manga.sh',
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' }
+    ]
   },
   plugins: [
     '~/plugins/vuetify.js',
     { src: '~/plugins/vue-gallery.js', ssr: false },
+    { src: '~/plugins/vue-stars.js', ssr: true },
     { src: '~/plugins/vue-timeago.js', ssr: false },
     { src: '~/plugins/flag-icons.js', ssr: false },
     { src: '~/plugins/infinite-loading.js', ssr: false }
   ],
   modules: [
+    '@nuxtjs/pwa',
     '@nuxtjs/font-awesome',
     '@nuxtjs/axios'
   ],

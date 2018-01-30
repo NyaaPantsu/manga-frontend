@@ -59,7 +59,7 @@
             <v-flex xs4 hidden-xs-only>
               {{ item.ContributorId.Username }}
             </v-flex>
-            <v-flex xs4 sm2>
+            <v-flex xs4 sm2 hidden-xs-only>
               <flag :iso="item.ChapterLanguage.Code" />
             </v-flex>
             <v-flex xs4 sm2>
