@@ -5,25 +5,29 @@
     </loading>
     <v-card color="secondary" flat>
       <v-card-text>
-
         <v-form id="form">
-          <v-text-field label="Name" v-model="name" name="name" require></v-text-field>
-          <v-text-field label="Description" v-model="description" name="description" require></v-text-field>
+          <v-text-field label="Name" v-model="name" name="name" required></v-text-field>
+          <v-text-field label="Description" v-model="description" name="description" required></v-text-field>
           <v-select v-model="tag" label="Tags" :loading="loadingtags" dark :search-input.sync="tagsSearch" chips tags autocomplete
-            :items="tags"></v-select>
+            :items="tags" required></v-select>
           <v-select v-model="author" label="Authors" :loading="loadingauthors" dark :search-input.sync="authorsSearch" chips tags autocomplete
-            :items="authors">
+            :items="authors" required>
           </v-select>
           <v-select v-model="artist" label="Artists" :loading="loadingartists" dark :search-input.sync="artistsSearch" chips tags autocomplete
-            :items="artists"></v-select>
+            :items="artists" required></v-select>
           <v-select v-model="aliases" label="Series Aliases" chips tags></v-select>
-          <v-select v-model="statuses" label="Status" v-bind:items="this.status" item-value="text" name="status"></v-select>
-          <v-select v-model="typename" label="Type Name" v-bind:items="this.types" item-value="text" name="typename">
+          <v-select v-model="statuses" label="Status" v-bind:items="this.status" item-value="text" name="status" required></v-select>
+          <v-select v-model="typename" label="Type Name" v-bind:items="this.types" item-value="text" name="typename" required>
           </v-select>
-          <v-select v-model="typedemonym" label="Type Demonym" v-bind:items="this.demonyms" item-value="text" name="typedemonym">
+          <v-select v-model="typedemonym" label="Type Demonym" v-bind:items="this.demonyms" item-value="text" name="typedemonym" required>
           </v-select>
           <v-checkbox label="Mature" v-model="mature" dark name="mature"></v-checkbox>
-          <input type="file" name="cover" />
+          <span>
+            <span>
+              Cover Image 
+            </span>
+            <input type="file" name="cover" required/>
+          </span>
           <v-btn @click="submit">
             submit
           </v-btn>

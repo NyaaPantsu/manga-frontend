@@ -7,7 +7,7 @@
       <v-alert color="info" icon="info" value="true">
         Please note many features are still WIP. Manga from batoto hasn't been imported yet Uploading, adding series, searching, logging in and signing up work
       </v-alert>
-      <Table :chapters="this.chapters" />
+      <Table :chapters="this.chapters"/>
       <div class="text-xs-center">
         <v-pagination :length="count" v-model="page" :total-visible="10"></v-pagination>
       </div>

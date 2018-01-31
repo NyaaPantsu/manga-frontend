@@ -83,8 +83,6 @@
                     <div>
                       <span><router-link :to="{ name: 'comics-id', params: { id: item.SeriesId.Id }}">{{ item.SeriesId.Name }}</router-link></span>
                       <span><timeago :since="item.TimeUploaded | timestamp"></timeago></span>
-                      <span v-for="groups in item.SeriesChaptersGroups"></span>{{ groups.GroupName }}</span>
-                      <span>{{ item.ContributorId.Username }}</span>
                     </div>
                   </v-card-title>
                   <v-card-actions>

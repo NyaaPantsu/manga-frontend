@@ -6,16 +6,16 @@
       <v-card-text>
         <v-form id="form">
           <v-select v-model="name" label="Series" :loading="loading" dark cache-items required :search-input.sync="search" autocomplete :items="items"></v-select>
-          <v-text-field v-model="title" label="Title"></v-text-field>
-          <v-select v-model="language" label="Language" v-bind:items="this.languages" autocomplete></v-select>
-          <v-select v-model="group" label="Groups" :loading="loadinggroup" dark :search-input.sync="groupSearch" chips tags autocomplete :items="groups"></v-select>
-          <v-text-field v-model="volume" label="Volume Number" mask="###"></v-text-field>
-          <v-text-field v-model="volumechapter" label="Volume Chapter Number" mask="###.###"></v-text-field>
-          <v-text-field v-model="absolute" label="Absolute Chapter Number" mask="###.###"></v-text-field>
+          <v-text-field v-model="title" label="Title" required></v-text-field>
+          <v-select v-model="language" label="Language" v-bind:items="this.languages" autocomplete required></v-select>
+          <v-select v-model="group" label="Groups" :loading="loadinggroup" dark :search-input.sync="groupSearch" chips tags autocomplete :items="groups" required></v-select>
+          <v-text-field v-model="volume" label="Volume Number" mask="###" required></v-text-field>
+          <v-text-field v-model="volumechapter" label="Volume Chapter Number" mask="###.###" required></v-text-field>
+          <v-text-field v-model="absolute" label="Absolute Chapter Number" mask="###.###" required></v-text-field>
           <v-text-field v-model="delay" label="Release Delay" mask="###"></v-text-field>
           <span>
-              <span>Chapter Archive </span>
-          <input type="file" name="files" />
+            <span>Chapter Archive </span>
+            <input type="file" name="files" />
           </span>
           <v-btn @click="submit">
             submit
