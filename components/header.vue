@@ -35,20 +35,7 @@
       <v-spacer></v-spacer>
       <v-select v-model="name" :loading="loading" :append-icon-cb="redirect" dark cache-items :search-input.sync="search" autocomplete
         append-icon="search" :items="this.series"></v-select>
-
       </v-flex>
-      <v-btn icon @click="toggleExtension" hidden-xs-only>
-        <v-icon>search</v-icon>
-      </v-btn>
-      <v-layout row v-if="this.$store.state.extended" slot="extension">
-
-        <v-switch v-model="nsfw" label="NSFW" dark></v-switch>
-        <v-select v-model="language"></v-select>
-        <v-select v-model="tags"></v-select>
-      </v-layout>
-
-
-
       <v-menu v-if="this.$store.state.user" offset-y hidden-xs-only>
         <v-btn :ripple="false" icon fab primary small class="mr-3" slot="activator">
           <v-icon>person</v-icon>
