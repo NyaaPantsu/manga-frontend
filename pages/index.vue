@@ -5,7 +5,8 @@
     </div>
     <div>
       <v-alert color="info" icon="info" value="true">
-        Please note many features are still WIP. Manga from batoto hasn't been imported yet Uploading, adding series, searching, logging in and signing up work
+        Please note many features are still WIP.
+        Chapters are mostly missing their files from batoto 
       </v-alert>
       <Table :chapters="this.chapters"/>
       <div class="text-xs-center">
