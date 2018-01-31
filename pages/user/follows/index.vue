@@ -31,7 +31,7 @@
       }
     },
     async mounted () {
-      var header = 'Bearer ' + this.$store.state.token
+      var header = 'Bearer ' + this.$cookie.get('token')
       await this.$axios.$get('/follows', {
         headers: {
           Authorization: header

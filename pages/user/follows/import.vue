@@ -30,11 +30,10 @@
         this.createInput(files[0])
       },
       createInput: function (file) {
-        this.$axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.$store.state.token
         var reader = new FileReader()
         reader.onload = (e) => {
           this.fileinput = reader.result
-          var header = 'Bearer ' + this.$store.state.token
+          var header = 'Bearer ' + this.$cookie.get('token')
           this.$store.commit('show', true)
           setTimeout(() => {
             this.$axios.$post('/follows/import', reader.result, {

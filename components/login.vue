@@ -54,6 +54,7 @@
               alert: 'You signed in successfully!'
             })
             this.$cookie.set('token', data['token'], 1);
+            this.$cookie.set('user', true, 1);
             this.$cookie.set('username', data['username'], 1);
             this.$store.commit('username', data['username'])
             this.$store.commit('token', data['token'])
