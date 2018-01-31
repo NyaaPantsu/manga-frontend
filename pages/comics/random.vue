@@ -5,7 +5,7 @@
 <script>
   export default {
     async mounted () {
-      var id = Math.floor(Math.random() * Math.floor(20000))
+      var id = Math.floor(Math.random() * 22000) + 44735
       this.$router.push('/comics/' + id)
     }
   }
