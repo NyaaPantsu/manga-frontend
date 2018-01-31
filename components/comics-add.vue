@@ -118,7 +118,7 @@
         formData.append('tags', this.tag.join())
         formData.append('artists', this.artist.join())
         formData.append('authors', this.author.join())
-        var header = 'Bearer ' + this.$store.state.token
+        var header = 'Bearer ' + this.$cookie.get('token')
         this.$store.commit('show', true)
         setTimeout(() => {
           this.$axios.$post('/series', formData, {

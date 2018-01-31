@@ -73,7 +73,7 @@
         formData.append('groups', this.group.join())
         formData.append('languages', this.language)
         formData.append('delay', this.delay)
-        var header = 'Bearer ' + this.$store.state.token
+        var header = 'Bearer ' + this.$cookie.get('token')
         this.$store.commit('show', true)
         setTimeout(() => {
           this.$axios.$post('/series_chapters', formData, {

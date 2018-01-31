@@ -11,6 +11,7 @@ module.exports = {
   },
   plugins: [
     '~/plugins/vuetify.js',
+    '~/plugins/vue-cookies.js',
     { src: '~/plugins/vue-gallery.js', ssr: false },
     { src: '~/plugins/vue-loading.js', ssr: false },
     { src: '~/plugins/vue-stars.js', ssr: true },
@@ -45,7 +46,14 @@ module.exports = {
     */
   build: {
     vendor: [
-      '~/plugins/vuetify.js'
+      '~/plugins/vuetify.js',
+      '~/plugins/vue-cookies.js',
+      '~/plugins/vue-gallery.js',
+      '~/plugins/vue-loading.js',
+      '~/plugins/vue-stars.js',
+      '~/plugins/vue-timeago.js',
+      '~/plugins/flag-icons.js',
+      '~/plugins/infinite-loading.js'
     ],
     extractCSS: true,
     /*

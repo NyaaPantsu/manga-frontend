@@ -23,8 +23,7 @@
     },
     methods: {
       submit: function (event) {
-        var header = 'Bearer ' + this.$store.state.token
-        console.log(header)
+        var header = 'Bearer ' + this.$cookie.get('token')
         this.$axios.$post('/groups_scanlation', JSON.stringify({
           name: this.name,
           description: this.description,

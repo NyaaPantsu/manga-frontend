@@ -1,3 +1,4 @@
+
 export const state = () => ({
   sidebar: false,
   nsfw: false,
