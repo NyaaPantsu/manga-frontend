@@ -14,7 +14,6 @@
                   <div>
                     <h3 class="headline mb-0">{{ this.series.Name }}</h3>
                     <v-chip color="primary" text-color="white" v-for="alias in series.SeriesAliases">{{ alias.Name }}</v-chip>
-                    <vue-stars v-model="rating" :max="5" />
                   </div>
                 </v-card-title>
               </v-flex>
@@ -55,7 +54,6 @@
   </div>
 </template>
 <script>
-  import VueStars from 'vue-stars'
   export default {
     name: 'ComicsOne',
     components: {
