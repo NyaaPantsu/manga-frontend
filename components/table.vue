@@ -56,7 +56,7 @@
                 <v-layout class="pa-1">
                   <v-flex xs8 sm6>
                     <img style="float: left; padding: 3px 4px;" src="/book_open.png" />
-                    <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }}</router-link>
+                    <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }} {{ item.ChapterNumberVolume }}</router-link>
                   </v-flex>
                   <v-flex xs2 hidden-xs-only v-for="groups in item.SeriesChaptersGroups">
                     {{ groups.GroupName }}
@@ -90,7 +90,7 @@
                     <v-btn icon>
                       <v-icon>fa fa-book</v-icon>
                     </v-btn>
-                    <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberVolume }}{{ item.ChapterNumberAbsolute }}</router-link>
+                    <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }}{{ item.ChapterNumberVolume }}</router-link>
                     <v-btn icon>
                       <flag :iso="item.ChapterLanguage.Code" />
                     </v-btn>
