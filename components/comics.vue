@@ -56,9 +56,6 @@
 <script>
   export default {
     name: 'ComicsOne',
-    components: {
-      VueStars
-    },
     data: () => {
       return {
         cdn: 'https://cdn.manga.sh/covers/',
