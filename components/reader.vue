@@ -40,15 +40,9 @@
           </v-btn>
         </div>
       </v-flex>
-  
     </v-layout>
-  
-  
-    <div>
-      <gallery :images="images" :index="index" @close="index = null"></gallery>
-      <div v-for="image, index in images" v-bind:data="image" v-bind:key="index">
-        <img :src="image" v-on:click="imgindex(index)" :style="{width: '100%', height: 'auto' }">
-      </div>
+    <div v-for="image, index in images" v-bind:data="image" v-bind:key="index">
+      <img v-img:my-group :src="image" :style="{width: '100%', height: 'auto' }">
     </div>
   </div>
 </template>

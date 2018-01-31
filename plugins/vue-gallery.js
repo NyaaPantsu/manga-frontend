@@ -1,4 +1,5 @@
 import Vue from 'vue'
-import VueGallery from 'vue-gallery'
+import VueImg from 'v-img'
 
-Vue.component('gallery', VueGallery)
+Vue.use(VueImg)
+
