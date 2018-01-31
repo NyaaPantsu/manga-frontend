@@ -37,7 +37,6 @@
           Authorization: header
         }
       }).then((response) => {
-        console.log(response)
         this.chapters = response['response']
         var count = (response.count / this.limit)
         this.count = Number(count.toFixed(0))

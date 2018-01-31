@@ -49,7 +49,7 @@
 
 
 
-      <v-menu v-if="this.$cookie.get('user')" offset-y hidden-xs-only>
+      <v-menu v-if="this.$store.state.user" offset-y hidden-xs-only>
         <v-btn :ripple="false" icon fab primary small class="mr-3" slot="activator">
           <v-icon>person</v-icon>
         </v-btn>
