@@ -34,14 +34,29 @@
     },
     async mounted () {
       var hash = this.$route.params.id
-      await this.$axios.$get('/series_chapters/' + hash).then((data) => {
-        this.series = data['response'][0].SeriesId
-        this.files = data['response'][0]
+      await this.$axios.$get('/series_chapters/' + hash).then((response) => {
+        if (response['response'][0]['SeriesChaptersFiles'].length === 0) {
+          this.$store.commit('alerts/addAlert', {
+            type: 'error',
+            alert: 'Error chapter not imported yet'
+          })
+          this.$router.push('/')
+          return
+        }
+        if (response['success'] !== true) {
+          this.$store.commit('alerts/addAlert', {
+            type: 'error',
+            alert: 'Error something went wrong'
+          })
+          return
+        }
+        this.series = response['response'][0].SeriesId
+        this.files = response['response'][0]
         var array = Object.values(this.files.SeriesChaptersFiles)
         for (var index = 0; index < array.length; index++) {
           this.images.push('https://cdn.manga.sh/' + array[index].Name)
         }
-        this.count = data.count
+        this.count = response.count
       })
       await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.series.Id + ',ChapterLanguage.Name:' + this.files.ChapterLanguage.Name + '&orderby=TimeUploaded').then((response) => {
         this.items = response['response']

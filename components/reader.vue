@@ -18,29 +18,8 @@
           </v-menu>
         </div>
       </v-flex>
-  
-      <v-flex xs2>
-        <div class="text-xs-center">
-          <v-menu offset-y>
-            <v-btn color="primary" dark slot="activator">Pages</v-btn>
-            <v-list>
-              <v-list-tile v-for="image, index in images">
-                <v-list-tile-title>
-                  <nuxt-link :key="$route.fullPath" :to="{ name: 'reader-id',params: { id: files.Hash },  query: { p: index }}">{{ index }}</nuxt-link>
-                </v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </div>
-      </v-flex>
-      <v-flex xs2>
-        <div class="text-xs-center">
-          <v-btn dark color="primary" @click="follow">
-            Follow
-          </v-btn>
-        </div>
-      </v-flex>
     </v-layout>
+  
     <div v-for="image, index in images" v-bind:data="image" v-bind:key="index">
       <img v-img:my-group :src="image" :style="{width: '100%', height: 'auto' }">
     </div>
