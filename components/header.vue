@@ -1,24 +1,12 @@
 <template>
-    <v-layout>
+  <v-layout>
 
-   <v-navigation-drawer
-      :mini-variant.sync="miniVariant"
-      :clipped="clipped"
-      v-model="drawer"
-      fixed
-      app
-      disable-route-watcher
-    >
+    <v-navigation-drawer :mini-variant.sync="miniVariant" :clipped="clipped" v-model="drawer" fixed app disable-route-watcher>
       <v-list>
         <div>
 
         </div>
-        <v-list-tile
-          :to="item.to"
-          :key="i"
-          v-for="(item, i) in items"
-          exact
-        >
+        <v-list-tile :to="item.to" :key="i" v-for="(item, i) in items" exact>
           <v-list-tile-action>
             <v-icon v-html="item.icon"></v-icon>
           </v-list-tile-action>
@@ -26,8 +14,7 @@
             <v-list-tile-title v-text="item.title"></v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile
-          @click.stop="miniVariant = !miniVariant">
+        <v-list-tile @click.stop="miniVariant = !miniVariant">
           <v-list-tile-action>
             <v-icon v-html="miniVariant ? 'chevron_right' : 'first_page'"></v-icon>
           </v-list-tile-action>
@@ -46,82 +33,58 @@
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
       <v-spacer></v-spacer>
-                     <v-select
-          v-model="name"
-            :loading="loading"
-            :append-icon-cb="redirect"
-              dark
-              cache-items
-                            :search-input.sync="search"
+      <v-select v-model="name" :loading="loading" :append-icon-cb="redirect" dark cache-items :search-input.sync="search" autocomplete
+        append-icon="search" :items="this.series"></v-select>
 
-          autocomplete
-         append-icon="search"
-          :items="this.series"
-        ></v-select>
-
-          </v-flex>
-           <v-btn icon @click="toggleExtension" hidden-xs-only>
+      </v-flex>
+      <v-btn icon @click="toggleExtension" hidden-xs-only>
         <v-icon>search</v-icon>
       </v-btn>
       <v-layout row v-if="this.$store.state.extended" slot="extension">
 
-            <v-switch v-model="nsfw" label="NSFW" dark></v-switch>
-            <v-select v-model="language"></v-select>
-            <v-select v-model="tags"></v-select>
+        <v-switch v-model="nsfw" label="NSFW" dark></v-switch>
+        <v-select v-model="language"></v-select>
+        <v-select v-model="tags"></v-select>
       </v-layout>
 
 
-       
-      <v-menu
-        v-if="this.$store.state.user"
-        offset-y
-        hidden-xs-only
-      >
-        <v-btn
-          :ripple="false"
-          icon
-          fab
-          primary
-          small
-          class="mr-3"
-          slot="activator"
-        >
+
+      <v-menu v-if="this.$store.state.user" offset-y hidden-xs-only>
+        <v-btn :ripple="false" icon fab primary small class="mr-3" slot="activator">
           <v-icon>person</v-icon>
         </v-btn>
         <v-list>
           <v-list-tile v-for="item in user_menu" :key="item.title">
-            <v-list-tile-title><nuxt-link :to="item.to">{{ item.title }}</nuxt-link></v-list-tile-title>
+            <v-list-tile-title>
+              <nuxt-link :to="item.to">{{ item.title }}</nuxt-link>
+            </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
       <v-menu offset-y v-else>
-                <v-btn
-          :ripple="false"
-          primary
-          class="mr-3"
-          slot="activator"
-        >
-        Login
+        <v-btn :ripple="false" primary class="mr-3" slot="activator">
+          Login
         </v-btn>
-          <v-list>
-          <v-list-tile >
-            <v-list-tile-title><nuxt-link to="/login">Login</nuxt-link></v-list-tile-title>
+        <v-list>
+          <v-list-tile>
+            <v-list-tile-title>
+              <nuxt-link to="/login">Login</nuxt-link>
+            </v-list-tile-title>
           </v-list-tile>
-          <v-list-tile >
-            <v-list-tile-title><nuxt-link to="/register">Register</nuxt-link></v-list-tile-title>
+          <v-list-tile>
+            <v-list-tile-title>
+              <nuxt-link to="/register">Register</nuxt-link>
+            </v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>
-
-
-
     </v-toolbar>
-    </v-layout>
+  </v-layout>
 </template>
 
 <script>
   export default {
-    data () {
+    data: () => {
       return {
         clipped: true,
         drawer: false,
@@ -130,22 +93,66 @@
         loading: false,
         search: null,
         items: [
-          { icon: 'home', title: 'Home', to: '/' },
-          { icon: 'book', title: 'Comics', to: '/comics' },
-          { icon: 'autorenew', title: 'Random', to: '/comics/random' },
-          { icon: 'group', title: 'Groups', to: '/groups' },
-          { icon: 'forum', title: 'Forums', to: '/forums' },
-          { icon: 'fa fa-plus', title: 'Add Series', to: '/comics/add' },
-          { icon: 'fa fa-upload', title: 'Add Chapter', to: '/comics/upload' },
-          { icon: 'forum', title: 'Add Groups', to: '/groups/add' }
+          {
+            icon: 'home',
+            title: 'Home',
+            to: '/'
+          },
+          {
+            icon: 'book',
+            title: 'Comics',
+            to: '/comics'
+          },
+          {
+            icon: 'autorenew',
+            title: 'Random',
+            to: '/comics/random'
+          },
+          {
+            icon: 'group',
+            title: 'Groups',
+            to: '/groups'
+          },
+          {
+            icon: 'forum',
+            title: 'Forums',
+            to: '/forums'
+          },
+          {
+            icon: 'fa fa-plus',
+            title: 'Add Series',
+            to: '/comics/add'
+          },
+          {
+            icon: 'fa fa-upload',
+            title: 'Add Chapter',
+            to: '/comics/upload'
+          },
+          {
+            icon: 'forum',
+            title: 'Add Groups',
+            to: '/groups/add'
+          }
         ],
         user: false,
         nsfw: false,
         user_menu: [
-          { title: 'Settings', to: '/user/settings' },
-          { title: 'Follows', to: '/user/follows' },
-          { title: 'Import', to: '/user/follows/import' },
-          { title: 'Logout', to: '/user/logout' }
+          {
+            title: 'Settings',
+            to: '/user/settings'
+          },
+          {
+            title: 'Follows',
+            to: '/user/follows'
+          },
+          {
+            title: 'Import',
+            to: '/user/follows/import'
+          },
+          {
+            title: 'Logout',
+            to: '/user/logout'
+          }
         ],
         miniVariant: false,
         title: 'manga.sh',
@@ -161,7 +168,12 @@
       redirect: function (label) {
         this.$axios.$get('/series?query=Name:' + this.name).then((response) => {
           var seriesid = response['response'][0].Id
-          this.$router.push({ name: 'comics-id', params: { id: seriesid } })
+          this.$router.push({
+            name: 'comics-id',
+            params: {
+              id: seriesid
+            }
+          })
         })
       },
       toggleExtension: function (event) {
@@ -177,7 +189,9 @@
         // Simulated ajax query
         setTimeout(() => {
           this.$axios.$get('/series?query=Name__icontains:' + v).then((response) => {
-            this.series = response['response'].map(function (item) { return item.Name })
+            this.series = response['response'].map(function (item) {
+              return item.Name
+            })
             this.loading = false
           })
         }, 500)

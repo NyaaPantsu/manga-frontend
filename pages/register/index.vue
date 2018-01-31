@@ -8,14 +8,15 @@
     </div>
   </div>
 </template>
+
 <script>
-import AppHeader from '~/components/header'
-import Register from '~/components/register'
-export default {
-  name: 'rego',
-  components: {
-    AppHeader,
-    Register
+  import AppHeader from '~/components/header'
+  import Register from '~/components/register'
+  export default {
+    name: 'rego',
+    components: {
+      AppHeader,
+      Register
+    }
   }
-}
 </script>

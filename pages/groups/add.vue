@@ -8,13 +8,14 @@
     </div>
   </div>
 </template>
+
 <script>
-import AppHeader from '~/components/header'
-import GroupsAdd from '~/components/groups-add'
-export default {
-  components: {
-    AppHeader,
-    GroupsAdd
+  import AppHeader from '~/components/header'
+  import GroupsAdd from '~/components/groups-add'
+  export default {
+    components: {
+      AppHeader,
+      GroupsAdd
+    }
   }
-}
 </script>

@@ -1,8 +1,9 @@
 <template>
-    
+  
 </template>
+
 <script>
-export default {
-  name: 'Comics'
-}
+  export default {
+    name: 'Comics'
+  }
 </script>
