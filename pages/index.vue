@@ -7,6 +7,9 @@
       <v-alert color="info" icon="info" value="true">
         Please note many features are still WIP.
         Chapters are mostly missing their files from batoto 
+        if you'd like to help or report bugs please visit
+        <a href="https://github.com/NyaaPantsu/manga">backend</a>
+        <a href="https://github.com/NyaaPantsu/manga-frontend">frontend</a>
       </v-alert>
       <Table :chapters="this.chapters"/>
       <div class="text-xs-center">
