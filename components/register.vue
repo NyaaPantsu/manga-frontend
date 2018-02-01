@@ -51,20 +51,20 @@
             if (response['response'] === null) {
               this.$store.commit('alerts/add', {
                 type: 'error',
-                alert: 'Error something went wrong'
+                text: 'Error something went wrong'
               })
               return
             }
             if (response['success'] !== true) {
               this.$store.commit('alerts/add', {
                 type: 'error',
-                alert: 'The sign up attempt failed!'
+                text: 'The sign up attempt failed!'
               })
               return
             }
             this.$store.commit('alerts/add', {
               type: 'success',
-              alert: 'You signed up successfully!'
+              text: 'You signed up successfully!'
             })
             this.$router.push('/login')
           })

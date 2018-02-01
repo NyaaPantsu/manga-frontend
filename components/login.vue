@@ -37,7 +37,7 @@
             if (response['response'] === null) {
               this.$store.commit('alerts/add', {
                 type: 'error',
-                alert: 'Error incorrect username or password'
+                text: 'Error incorrect username or password'
               })
               return
             }
@@ -45,13 +45,13 @@
             if (response['success'] !== true) {
               this.$store.commit('alerts/add', {
                 type: 'error',
-                alert: 'Your sign in attempt failed!'
+                text: 'Your sign in attempt failed!'
               })
               return
             }
             this.$store.commit('alerts/add', {
               type: 'success',
-              alert: 'You signed in successfully!'
+              text: 'You signed in successfully!'
             })
             this.$cookie.set('token', data['token'], 1)
             this.$cookie.set('user', true, 1)

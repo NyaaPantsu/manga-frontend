@@ -85,13 +85,13 @@
             if (response['success'] !== true) {
               this.$store.commit('alerts/add', {
                 type: 'error',
-                alert: 'Error upload attempt failed'
+                text: 'Error upload attempt failed'
               })
               return
             }
             this.$store.commit('alerts/add', {
               type: 'success',
-              alert: 'You successfully added a chapter!'
+              text: 'You successfully added a chapter!'
             })
           })
         }, 500)

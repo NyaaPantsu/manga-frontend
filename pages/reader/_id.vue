@@ -38,7 +38,7 @@
         if (response['response'][0]['SeriesChaptersFiles'].length === 0) {
           this.$store.commit('alerts/add', {
             type: 'error',
-            alert: 'Error chapter not imported yet'
+            text: 'Error chapter not imported yet'
           })
           this.$router.push('/')
           return
@@ -46,7 +46,7 @@
         if (response['success'] !== true) {
           this.$store.commit('alerts/add', {
             type: 'error',
-            alert: 'Error something went wrong'
+            text: 'Error something went wrong'
           })
           return
         }
