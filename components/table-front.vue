@@ -58,11 +58,14 @@
                     <img style="float: left; padding: 3px 4px;" src="/book_open.png" />
                     <router-link :to="{ name: 'reader-id', params: { id: item.Hash }}">Vol.{{ item.VolumeNumber }} Ch. {{ item.ChapterNumberAbsolute }} {{ item.ChapterNumberVolume }}</router-link>
                   </v-flex>
-                  <v-flex xs2 hidden-xs-only v-for="groups in item.SeriesChaptersGroups">
-                    {{ groups.GroupName }}
+                  <v-flex xs2 hidden-xs-only v-if="item.SeriesChaptersGroups.length === 0">
+                    {{ item.ContributorId.Username}}
                   </v-flex>
-                  <v-flex xs4 sm2 hidden-xs-only>
-                    <flag :iso="item.ChapterLanguage.Code" />
+                  <v-flex xs2 hidden-xs-only v-for="groups in item.SeriesChaptersGroups">
+                      <router-link :to="{ name: 'groups-id', params: { id: groups.GroupName }}">{{ groups.GroupName }}</router-link>
+                  </v-flex>
+                  <v-flex xs4 sm2 hidden-xs-only @click="language(item.ChapterLanguage.Code, $event)">
+                    <flag :iso="item.ChapterLanguage.Code"/>
                   </v-flex>
                   <v-flex xs4 sm2>
                     <timeago :since="item.TimeUploaded | timestamp"></timeago>
@@ -95,21 +98,14 @@
                     <v-btn icon>
                       <flag :iso="item.ChapterLanguage.Code" />
                     </v-btn>
-  
                   </v-card-actions>
                 </v-card>
               </v-flex>
-  
             </v-layout>
-  
           </div>
         </v-flex>
-  
       </v-layout>
-  
     </div>
-  
-  
   </div>
 </template>
 
@@ -140,6 +136,9 @@
       }
     },
     props: {
+      language: {
+        required: true
+      },
       chapters: {
         type: Array,
         required: true

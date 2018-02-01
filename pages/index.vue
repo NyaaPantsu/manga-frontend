@@ -11,7 +11,7 @@
         <a href="https://github.com/NyaaPantsu/manga">backend</a>
         <a href="https://github.com/NyaaPantsu/manga-frontend">frontend</a>
       </v-alert>
-      <TableFront :other="this.items" :chapters="this.chapters"/>
+      <TableFront :language="languageRefine" :other="this.items" :chapters="this.chapters"/>
       <div class="text-xs-center">
         <v-pagination :length="count" v-model="page" :total-visible="10"></v-pagination>
       </div>
@@ -94,6 +94,29 @@
       }
     },
     methods: {
+      languageRefine: function (val, event) {
+        this.$axios.$get('/series_chapters?query=ChapterLanguage.Code:' + val + '&order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit).then((response) => {
+          this.chapters = response['response']
+          var sort = this.chapters.sort(function (a, b) {
+            if (a['SeriesId']['Id'] < b['SeriesId']['Id']) {
+              return -1
+            } else if (a['SeriesId']['Id'] > b['SeriesId']['Id']) {
+              return 1
+            }
+            return 0
+          })
+          const unique = [...new Set(this.chapters.map(item => item.SeriesId.Id))]
+          var temp = []
+          for (let [key, value] of Object.entries(unique)) {
+            console.log(key, value)
+            var val = sort.filter(function (a) { return a.SeriesId.Id === value })
+            temp.push(val)
+          }
+          this.items = temp
+          var count = (response.count / this.limit)
+          this.count = Number(count.toFixed(0))
+        })
+      },
       search: function (event) {
         const chapters = this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + this.offset)
         this.chapters = chapters.response

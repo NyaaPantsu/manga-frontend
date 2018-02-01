@@ -37,7 +37,7 @@
       await this.$axios.$get('/groups_scanlation/' + id).then((response) => {
         this.groups = response['response']
       })
-      await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit).then((response) => {
+      await this.$axios.$get('/series_chapters?query=').then((response) => {
         this.chapters = response['response']
         var count = (response.count / this.limit)
         this.count = Number(count.toFixed(0))
