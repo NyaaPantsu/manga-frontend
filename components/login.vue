@@ -35,7 +35,7 @@
         }))
           .then((response) => {
             if (response['response'] === null) {
-              this.$store.commit('alerts/addAlert', {
+              this.$store.commit('alerts/add', {
                 type: 'error',
                 alert: 'Error incorrect username or password'
               })
@@ -43,13 +43,13 @@
             }
             var data = response['response'][0]
             if (response['success'] !== true) {
-              this.$store.commit('alerts/addAlert', {
+              this.$store.commit('alerts/add', {
                 type: 'error',
                 alert: 'Your sign in attempt failed!'
               })
               return
             }
-            this.$store.commit('alerts/addAlert', {
+            this.$store.commit('alerts/add', {
               type: 'success',
               alert: 'You signed in successfully!'
             })

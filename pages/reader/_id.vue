@@ -36,7 +36,7 @@
       var hash = this.$route.params.id
       await this.$axios.$get('/series_chapters/' + hash).then((response) => {
         if (response['response'][0]['SeriesChaptersFiles'].length === 0) {
-          this.$store.commit('alerts/addAlert', {
+          this.$store.commit('alerts/add', {
             type: 'error',
             alert: 'Error chapter not imported yet'
           })
@@ -44,7 +44,7 @@
           return
         }
         if (response['success'] !== true) {
-          this.$store.commit('alerts/addAlert', {
+          this.$store.commit('alerts/add', {
             type: 'error',
             alert: 'Error something went wrong'
           })
