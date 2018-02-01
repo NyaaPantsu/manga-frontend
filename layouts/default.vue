@@ -27,7 +27,7 @@ export default {
           } else {
             // error state
           }
-          this.$store.dispatch('consume', { type: atype, index: alertIndex })
+          this.$store.dispatch('alerts/consume', { type: atype, index: alertIndex })
         }
       }
       return alerts
