@@ -6,50 +6,51 @@ export const state = () => ({
 })
 
 export const mutations = {
-  addAlert (state, alert) {
-    if (typeof alert.alert === 'string') {
-      state[alert.type].push({
-        text: alert.alert,
+  add (state, alert) {
+    if (typeof alert === 'string') {
+      state[alert.info].push({
+        text: alert,
         remainingCount: 1,
-        type: alert.type
+        type: 'info'
       })
-    } else if (typeof alert.alert === 'object') {
+    } else if (typeof alert === 'object') {
       state[alert.type].push({
-        ...alert.alert,
-        type: alert.type
+        text: alert.text,
+        type: alert.type,
+        remainingCount: alert.remainingCount
       })
     } else {
       // error state
     }
   },
-  removeAlert (state, alert) {
+  remove (state, alert) {
     state[alert.type] = state[alert.type].splice(alert.index, 1)
   },
-  clearAlert (state, type) {
+  clear (state, type) {
     state[type] = []
   },
-  decrementAlertRemainingCount (state, alert) {
+  decrementRemainingCount (state, alert) {
     state[alert.type][alert.index].remainingCount -= 1
   }
 }
 
 export const actions = {
-  consumeAlert (store, alert) {
+  consume (store, alert) {
     // error handling -- non-number type is error state
     if (typeof store.state[alert.type][alert.index].remainingCount !== 'number') {
-      store.commit('removeAlert', alert)
+      store.commit('remove', alert)
       return
     }
     // if not persistent alert
     if (store.state[alert.type][alert.index].remainingCount !== -1) {
-      store.commit('decrementAlertRemainingCount', { type: alert.type, index: alert.index })
+      store.commit('decrementRemainingCount', { type: alert.type, index: alert.index })
       // if no remainingCount left, remove
       if (store.state[alert.type][alert.index].remainingCount === 0) {
-        store.commit('removeAlert', alert)
+        store.commit('remove', alert)
       }
     }
   },
-  async getAlerts (store) {
+  async get (store) {
     let alerts = []
     for (let atype of ['success', 'warn', 'info', 'error']) {
       for (let alertIndex in store.state[atype]) {
@@ -61,7 +62,7 @@ export const actions = {
         } else {
           // error state
         }
-        store.dispatch('consumeAlert', { type: atype, index: alertIndex })
+        store.dispatch('consume', { type: atype, index: alertIndex })
       }
     }
     return alerts

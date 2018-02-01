@@ -2,8 +2,8 @@
   <v-app dark>
     <v-content>
       <v-container>
-        <template v-for="alert in getAlerts">
-          <v-alert :key="alert" :type="alert.type" dismissible :value="alert.text">{{alert.text}}</v-alert>
+        <template v-for="(alert, index) in getAlerts">
+          <v-alert :key="index" :type="alert.type" dismissible :value="alert.text">{{alert.text}}</v-alert>
         </template>
         <nuxt />
       </v-container>
@@ -27,7 +27,7 @@ export default {
           } else {
             // error state
           }
-          this.$store.dispatch('consumeAlert', { type: atype, index: alertIndex })
+          this.$store.dispatch('consume', { type: atype, index: alertIndex })
         }
       }
       return alerts
