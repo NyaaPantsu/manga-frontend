@@ -15,7 +15,8 @@
                     //img(:src="group.Avatar")
                     img(src="http://via.placeholder.com/16x16")
                   v-list-tile-content
-                    v-list-tile-title(v-text="group.Name")
+                    v-list-tile-title
+                      router-link(:to="{ name: 'groups-id', params: { id: group.Name }}") {{ group.Name }}
                     v-list-tile-sub-title(v-html="group.Description")
       div(text-xs-center)
         v-pagination(:length="this.count" v-model="page" :total-visible="10")

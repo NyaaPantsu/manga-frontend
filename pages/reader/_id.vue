@@ -58,7 +58,7 @@
         }
         this.count = response.count
       })
-      await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.series.Id + ',ChapterLanguage.Name:' + this.files.ChapterLanguage.Name + '&orderby=TimeUploaded').then((response) => {
+      await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.series.Id + ',ChapterLanguage.Name:' + this.files.ChapterLanguage.Name + '&orderby=TimeUploaded&limit').then((response) => {
         this.items = response['response']
       })
     }

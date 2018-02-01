@@ -82,13 +82,6 @@
             }
           }).then((response) => {
             this.$store.commit('show', false)
-            if (response['response'] === null) {
-              this.$store.commit('alerts/addAlert', {
-                type: 'error',
-                alert: 'Error something went wrong'
-              })
-              return
-            }
             if (response['success'] !== true) {
               this.$store.commit('alerts/addAlert', {
                 type: 'error',

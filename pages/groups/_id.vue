@@ -4,7 +4,10 @@
       <app-header/>
     </div>
     <div>
+      {{ this.groups['Name'] }}
+      {{ this.groups.Description }}
       {{ groups }}
+      <span v-for="url in groups.GroupsScanlationUrls"> {{ url }}</span>
     </div>
     <div>
       <Table/>
@@ -31,10 +34,8 @@
     },
     async mounted () {
       var id = this.$route.params.id
-      await this.$axios.$get('/groups_scanlation?query=Name:' + decodeURI(id) + ' &limit=' + this.limit + '&offset=' + this.offset).then((response) => {
+      await this.$axios.$get('/groups_scanlation/' + id).then((response) => {
         this.groups = response['response']
-        var count = (response.count / this.limit)
-        this.count = Number(count.toFixed(0))
       })
       await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit).then((response) => {
         this.chapters = response['response']

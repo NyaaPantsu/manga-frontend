@@ -19,7 +19,7 @@
         </div>
       </v-flex>
     </v-layout>
-    <v-layout>
+    <v-layout column>
       <div v-for="image, index in images" v-bind:data="image" v-bind:key="index">
         <img v-img:my-group :src="image" :style="{width: '100%', height: 'auto' }">
       </div>

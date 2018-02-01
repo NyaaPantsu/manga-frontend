@@ -11,7 +11,7 @@
         <a href="https://github.com/NyaaPantsu/manga">backend</a>
         <a href="https://github.com/NyaaPantsu/manga-frontend">frontend</a>
       </v-alert>
-      <Table :chapters="this.chapters"/>
+      <TableFront :other="this.items" :chapters="this.chapters"/>
       <div class="text-xs-center">
         <v-pagination :length="count" v-model="page" :total-visible="10"></v-pagination>
       </div>
@@ -21,13 +21,14 @@
 
 <script>
   import AppHeader from '~/components/header'
-  import Table from '~/components/table'
+  import TableFront from '~/components/table-front'
   import Popular from '~/components/popular'
   export default {
     name: 'index',
     data: () => {
       return {
         chapters: [],
+        items: [],
         limit: 25,
         offset: 0,
         order: 'desc',
@@ -40,12 +41,28 @@
     },
     components: {
       AppHeader,
-      Table,
+      TableFront,
       Popular
     },
     async mounted () {
       await this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit).then((response) => {
         this.chapters = response['response']
+        var sort = this.chapters.sort(function (a, b) {
+          if (a['SeriesId']['Id'] < b['SeriesId']['Id']) {
+            return -1
+          } else if (a['SeriesId']['Id'] > b['SeriesId']['Id']) {
+            return 1
+          }
+          return 0
+        })
+        const unique = [...new Set(this.chapters.map(item => item.SeriesId.Id))]
+        var temp = []
+        for (let [key, value] of Object.entries(unique)) {
+          console.log(key, value)
+          var val = sort.filter(function (a) { return a.SeriesId.Id === value })
+          temp.push(val)
+        }
+        this.items = temp
         var count = (response.count / this.limit)
         this.count = Number(count.toFixed(0))
       })
@@ -55,6 +72,22 @@
         var offset = (this.limit * this.page) - 1
         this.$axios.$get('/series_chapters?order=' + this.order + '&sortby=' + this.sortby + '&limit=' + this.limit + '&offset=' + offset).then((response) => {
           this.chapters = response['response']
+          var sort = this.chapters.sort(function (a, b) {
+            if (a['SeriesId']['Id'] < b['SeriesId']['Id']) {
+              return -1
+            } else if (a['SeriesId']['Id'] > b['SeriesId']['Id']) {
+              return 1
+            }
+            return 0
+          })
+          const unique = [...new Set(this.chapters.map(item => item.SeriesId.Id))]
+          var temp = []
+          for (let [key, value] of Object.entries(unique)) {
+            console.log(key, value)
+            var val = sort.filter(function (a) { return a.SeriesId.Id === value })
+            temp.push(val)
+          }
+          this.items = temp
           var count = (response.count / this.limit)
           this.count = Number(count.toFixed(0))
         })
