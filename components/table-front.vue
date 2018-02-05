@@ -22,16 +22,64 @@
               <v-flex style="flex: 0 0 50px">
               </v-flex>
               <v-flex xs8 sm6 class="px-2" id="title">
-                Title
+                  Title
+                <span class="sort-arrows">
+                  <span class="sortarrowleft sortarrowdim">
+                    <nuxt-link :to="'?sortby=SeriesId&order=desc'">
+                      ▼
+                    </nuxt-link>
+                  </span>
+                  <span class="sortarrowdim">
+                    <nuxt-link :to="'?sortby=SeriesId&order=asc'">
+                      ▲
+                    </nuxt-link>
+                  </span>
+                </span>
               </v-flex>
               <v-flex xs4 hidden-xs-only>
                 Group
+                <span class="sort-arrows">
+                  <span class="sortarrowleft sortarrowdim">
+                    <nuxt-link :to="'?sortby=GroupsScanlation&order=desc'">
+                      ▼
+                    </nuxt-link>
+                  </span>
+                  <span class="sortarrowdim">
+                    <nuxt-link :to="'?sortby=GroupsScanlation&order=asc'">
+                      ▲
+                    </nuxt-link>
+                  </span>
+                </span>
               </v-flex>
               <v-flex xs4 sm2 id="title">
                 Language
+                <span class="sort-arrows">
+                  <span class="sortarrowleft sortarrowdim">
+                    <nuxt-link :to="'?sortby=ChapterLanguage&order=desc'">
+                      ▼
+                    </nuxt-link>
+                  </span>
+                  <span class="sortarrowdim">
+                    <nuxt-link :to="'?sortby=ChapterLanguage&order=asc'">
+                      ▲
+                    </nuxt-link>
+                  </span>
+                </span> 
               </v-flex>
               <v-flex xs4 sm2 id="title">
                 Date
+                <span class="sort-arrows">
+                  <span class="sortarrowleft sortarrowdim">
+                    <nuxt-link :to="'?sortby=TimeUploaded&order=desc'">
+                      ▼
+                    </nuxt-link>
+                  </span>
+                  <span class="sortarrowdim">
+                    <nuxt-link :to="'?sortby=TimeUploaded&order=asc'">
+                      ▲
+                    </nuxt-link>
+                  </span>
+                </span>
               </v-flex>
             </v-layout>
   
@@ -64,7 +112,7 @@
                   <v-flex xs2 hidden-xs-only v-for="groups in item.SeriesChaptersGroups">
                       <router-link :to="{ name: 'groups-id', params: { id: groups.GroupName }}">{{ groups.GroupName }}</router-link>
                   </v-flex>
-                  <v-flex xs4 sm2 hidden-xs-only @click="language(item.ChapterLanguage.Code, $event)">
+                  <v-flex xs4 sm2 hidden-xs-only>
                     <flag :iso="item.ChapterLanguage.Code"/>
                   </v-flex>
                   <v-flex xs4 sm2>
@@ -136,9 +184,6 @@
       }
     },
     props: {
-      language: {
-        required: true
-      },
       chapters: {
         type: Array,
         required: true
@@ -146,13 +191,6 @@
       other: {
         type: Array,
         required: true
-      },
-      count: {
-        type: Number,
-        required: true
-      },
-      page: {
-        type: Number
       }
     },
     methods: {

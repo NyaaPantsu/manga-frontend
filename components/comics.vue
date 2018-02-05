@@ -1,5 +1,6 @@
 <template>
   <div>
+    <v-layout>
     <v-card color="secondary" flat>
       <v-card-text>
         <v-layout row class="px-2">
@@ -51,6 +52,7 @@
       </v-card-actions>
 
     </v-card>
+    </v-layout>
   </div>
 </template>
 <script>
