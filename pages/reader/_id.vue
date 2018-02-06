@@ -53,9 +53,11 @@
         this.series = response['response'][0].SeriesId
         this.files = response['response'][0]
         var array = Object.values(this.files.SeriesChaptersFiles)
+        console.log(array)
         for (var index = 0; index < array.length; index++) {
           this.images.push('https://cdn.manga.sh/' + array[index].Name)
         }
+        console.log(this.images)
         this.count = response.count
       })
       await this.$axios.$get('/series_chapters?query=SeriesId.Id:' + this.series.Id + ',ChapterLanguage.Name:' + this.files.ChapterLanguage.Name + '&orderby=TimeUploaded&limit').then((response) => {

@@ -58,10 +58,10 @@
     },
     data: () => {
       return {
-        language: '',
-        aliases: '',
-        typename: '',
-        typedemonym: '',
+        language: null,
+        aliases: null,
+        typename: null,
+        typedemonym: null,
         statuses: '',
         mature: false,
         tagsSearch: null,
@@ -71,7 +71,8 @@
         loadingauthors: false,
         loadingartists: false,
         chapters: [],
-        tag: [],
+        tag: null,
+        tags: [],
         tagResults: [],
         authorResults: [],
         artistResults: [],
@@ -88,7 +89,6 @@
         author: null,
         artist: null,
         page: 0,
-        tags: null,
         languages: [],
         status: [
           {
@@ -129,16 +129,15 @@
       }
     },
     key: (to) => to.fullPath,
-    watchQuery: ['p', 'lang', 'order', 'tags', 'limit', 'author', 'artist', 'date', 'group'],
+    watchQuery: ['p', 'lang', 'order', 'tags', 'limit', 'author', 'artist', 'date', 'group', 'status', 'typename', 'typedemonym'],
     async mounted () {
-      const languages = await this.$axios.$get('/languages')
-      this.languages = languages['response'].map(function (item) {
-        return item.Name
-      })
       var query = this.$route.query
       var p = +query.p
       var lang = query.lang
       var order = query.order
+      var status = query.status
+      var typename = query.typename
+      var typedemonym = query.typedemonym
       var limit = +query.limit
       var author = query.author
       var artist = query.artist
@@ -146,6 +145,7 @@
       var group = query.group
       var sortby = query.sortby
       var params = []
+      console.log(lang)
       var q = []
       if (isNaN(p)) {
         p = 0
@@ -156,22 +156,31 @@
       if (order === undefined) {
         order = 'desc'
       }
+      if (status !== undefined) {
+        q.push('SeriesId.Status.Name:' + status)
+      }
+      if (typename !== undefined) {
+        q.push('SeriesId.TypeName:' + typename)
+      }
+      if (typedemonym !== undefined) {
+        q.push('SeriesId.TypeDemonym:' + typedemonym)
+      }
       if (group !== undefined) {
         let temp = group.split(',')
         q.push('Groups:' + temp.join(',' + 'Groups:'))
       }
-      if (author !== undefined) {
-        q.push('SeriesTags.NameSpace:Author,SeriesTags.Name:' + author)
+      if (artist !== undefined) {
+        q.push('SeriesId.SeriesTags.NameSpace:Author,SeriesId.SeriesTags.TagName:' + author)
       }
       if (author !== undefined) {
-        q.push('SeriesTags.NameSpace:Artist,SeriesTags.Name:' + artist)
+        q.push('SeriesId.SeriesTags.NameSpace:Artist,SeriesId.SeriesTags.TagName:' + artist)
       }
       if (tags !== undefined) {
         let temp = tags.split(',')
-        q.push('SeriesTags.Name:' + temp.join(',' + 'SeriesTags.Name:'))
+        q.push('SeriesId.SeriesTags.TagName:' + temp.join(',' + 'SeriesId.SeriesTags.TagName:'))
       }
       if (lang !== undefined) {
-        q.push('ChapterLanguage.Name' + lang)
+        q.push('ChapterLanguage.Name:' + lang)
       }
       if (sortby === undefined) {
         sortby = 'TimeUploaded'
@@ -221,7 +230,34 @@
     },
     methods: {
       submit: function (val) {
-
+        var q = []
+        if (this.language !== null) {
+          q.push('lang=' + this.language)
+        }
+        console.log(this.tag)
+        console.log(this.authors)
+        console.log(this.artists)
+        console.log(this.statuses)
+        if (this.tag.length > 0) {
+          q.push('tags=' + this.tag.join(','))
+        }
+        if (this.authors.length > 0) {
+          q.push('authors=' + this.authors)
+        }
+        if (this.artists.length > 0) {
+          q.push('artists=' + this.artists)
+        }
+        if (this.typename !== null) {
+          q.push('typename=' + this.typename)
+        }
+        if (this.typedemonym !== null) {
+          q.push('typedemonym=' + this.typedemonym)
+        }
+        if (this.mature !== null) {
+          q.push('status=' + this.mature)
+        }
+        console.log(q.join('&'))
+        this.$router.push('/?' + q.join('&'))
       },
       queryTags (v) {
         this.loadingtags = true

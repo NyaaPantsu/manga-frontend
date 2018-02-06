@@ -11,6 +11,7 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "@ewhal/v-img": "^0.2.3",
     "@nuxtjs/axios": "^4.5.2",
     "@nuxtjs/font-awesome": "^1.0.3",
     "@nuxtjs/pwa": "^2.0.5",
@@ -18,7 +19,6 @@
     "nuxt": "^1.0.0",
     "pug": "^2.0.0-rc.4",
     "timeago-vue": "0.0.1",
-    "v-img": "^0.2.0",
     "vue-cookie": "^1.1.4",
     "vue-flag-icon": "^1.0.6",
     "vue-full-loading": "^1.0.3",
