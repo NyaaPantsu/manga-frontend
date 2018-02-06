@@ -1,4 +1,4 @@
 import Vue from 'vue'
-import VueImg from '@ewhal/v-img'
+import Viewer from 'v-viewer'
 
-Vue.use(VueImg)
+Vue.use(Viewer)

@@ -20,9 +20,15 @@
       </v-flex>
     </v-layout>
     <v-layout column>
-      <div v-for="image, index in images" v-bind:data="image" v-bind:key="index">
-        <img v-img:my-group :src="image" :style="{width: '100%', height: 'auto' }">
-      </div>
+     <viewer :options="options" :images="images"
+            @inited="inited"
+            class="viewer" ref="viewer"
+    >
+     <template scope="scope">
+        <img @click="show" v-for="src in scope.images" :src="src" :key="src" :style="{width: '100%', height: 'auto' }">
+        {{scope.options}}
+      </template>
+    </viewer>
     </v-layout>
 
   </div>
@@ -32,12 +38,15 @@
   export default {
     data: () => {
       return {
-        index: null
+        options: { 'inline': false, 'button': true, 'navbar': false, 'title': false, 'toolbar': true, 'tooltip': true, 'movable': true, 'zoomable': true, 'rotatable': false, 'scalable': false, 'transition': true, 'fullscreen': true, 'keyboard': true, 'url': 'data-source' }
       }
     },
     methods: {
-      imgindex: function (value) {
-        this.index = value
+      inited (viewer) {
+        this.$viewer = viewer
+      },
+      show () {
+        this.$viewer.show()
       },
       follow: function () {
         var header = 'Bearer ' + this.$store.state.token
